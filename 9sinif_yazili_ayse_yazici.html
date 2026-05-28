@@ -5,697 +5,267 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>9. Sınıf Yazılı Çalışması – Din Kültürü | Ayşe Yazıcı</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Cinzel:wght@400;600&display=swap');
 
 :root {
-  --paper:       #6b0f1a;
-  --paper2:      #580c16;
-  --paper3:      #450910;
-  --ink:         #f5e8d0;
-  --ink2:        #e8d0a8;
-  --spine:       #3a0608;
-  --spine2:      #280406;
-  --gold:        #e0b84a;
-  --gold-light:  #f5d878;
-  --gold-mid:    #c9a040;
-  --crimson:     #c0392b;
-  --crimson2:    #a52c20;
-  --crimson3:    #8b1e14;
-  --green-ink:   #a8e8c0;
-  --green-bg:    #1a4a2d;
-  --desk:        #1a0e06;
-  --sidebar-w:   256px;
+  --bg:      #7b1020;
+  --bg2:     #6a0d1a;
+  --sidebar: #550a14;
+  --card:    rgba(0,0,0,0.15);
+  --border:  rgba(255,255,255,0.12);
+  --text:    #f0e6d6;
+  --text2:   #d4c0a0;
+  --gold:    #e8c460;
+  --sw:      256px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
-  background: var(--desk);
-  background-image:
-    radial-gradient(ellipse at 20% 50%, #2a1208 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 50%, #2a1208 0%, transparent 60%);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 32px 16px 48px;
-  color: var(--ink);
 }
 
-/* ── KİTAP KABI ── */
-.layout {
-  display: flex;
-  width: 100%;
-  max-width: 1280px;
-  min-height: calc(100vh - 80px);
-  position: relative;
-  box-shadow:
-    -12px 0 40px rgba(0,0,0,0.7),
-    12px 0 40px rgba(0,0,0,0.7),
-    0 8px 60px rgba(0,0,0,0.8);
-  border-radius: 3px 6px 6px 3px;
-}
+.layout { display: flex; min-height: 100vh; }
 
-/* Cilt çizgisi (sırt) */
-.layout::before {
-  content: '';
-  position: absolute;
-  left: var(--sidebar-w);
-  top: 0; bottom: 0;
-  width: 8px;
-  background: linear-gradient(to right,
-    rgba(0,0,0,0.45) 0%,
-    rgba(0,0,0,0.15) 40%,
-    rgba(255,255,255,0.08) 60%,
-    rgba(0,0,0,0.10) 100%);
-  z-index: 200;
-  pointer-events: none;
-}
-
-/* Sayfa kıvrımı efekti — sağ alt köşe */
-.layout::after {
-  content: '';
-  position: absolute;
-  bottom: 0; right: 0;
-  width: 0; height: 0;
-  border-style: solid;
-  border-width: 0 0 28px 28px;
-  border-color: transparent transparent var(--desk) transparent;
-  z-index: 300;
-  pointer-events: none;
-}
-
-/* ── İÇİNDEKİLER (SOL SAYFA / CİLT) ── */
+/* SIDEBAR */
 .sidebar {
-  width: var(--sidebar-w);
-  background: linear-gradient(180deg, var(--spine) 0%, var(--spine2) 50%, var(--spine) 100%);
-  color: #e8c880;
-  position: sticky;
-  top: 0;
-  height: calc(100vh - 80px);
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  border-radius: 3px 0 0 3px;
-  z-index: 100;
-  border-right: none;
-  scrollbar-width: thin;
-  scrollbar-color: var(--gold-mid) transparent;
+  width: var(--sw);
+  background: var(--sidebar);
+  color: var(--text);
+  position: fixed; top: 0; left: 0; bottom: 0;
+  display: flex; flex-direction: column;
+  overflow-y: auto; z-index: 100;
+  border-right: 1px solid var(--border);
 }
-
-/* Cilt altın çizgileri */
 .sidebar-brand {
-  background: linear-gradient(135deg, #2a1005 0%, #4a2010 100%);
-  padding: 28px 18px 20px;
+  padding: 24px 16px 18px;
   text-align: center;
-  border-bottom: 1px solid var(--gold-mid);
-  position: relative;
+  border-bottom: 1px solid var(--border);
 }
-.sidebar-brand::before,
-.sidebar-brand::after {
-  content: '';
-  display: block;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--gold-mid), transparent);
-  margin: 8px 0;
-}
-.sidebar-brand .logo { font-size: 2.2em; margin-bottom: 10px; display: block; }
-.sidebar-brand h2 {
-  font-family: 'Cinzel', Georgia, serif;
-  font-size: 0.78em;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  line-height: 1.5;
-  color: #f0d890;
-  text-transform: uppercase;
-}
-.sidebar-brand .alt {
-  font-family: 'EB Garamond', Georgia, serif;
-  font-size: 0.8em;
-  opacity: 0.8;
-  margin-top: 6px;
-  font-style: italic;
-  color: #d4b060;
-}
-
-.sidebar-section { padding: 14px 10px 4px; }
-.sidebar-section-title {
-  font-family: 'Cinzel', Georgia, serif;
-  font-size: 0.62em;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--gold-mid);
-  padding: 0 8px;
-  margin-bottom: 8px;
-  opacity: 0.9;
-}
-
+.sidebar-brand .logo { font-size: 2em; margin-bottom: 8px; display: block; }
+.sidebar-brand h2 { font-size: 0.85em; font-weight: 700; line-height: 1.4; color: var(--text); }
+.sidebar-brand .alt { font-size: 0.75em; opacity: 0.7; margin-top: 4px; color: var(--gold); }
+.sidebar-section { padding: 12px 10px 4px; }
+.sidebar-section-title { font-size: 0.68em; letter-spacing: 2px; text-transform: uppercase; opacity: 0.55; padding: 0 8px; margin-bottom: 6px; }
 .sidebar-btn {
   display: flex; align-items: center; gap: 10px;
   width: 100%; padding: 9px 12px;
-  background: none; border: none;
-  color: #e8c880; text-align: left;
-  border-radius: 4px;
-  cursor: pointer;
-  font-family: 'EB Garamond', Georgia, serif;
-  font-size: 0.95em;
-  transition: background 0.2s;
-  margin-bottom: 2px;
+  background: none; border: none; color: var(--text); text-align: left;
+  border-radius: 6px; cursor: pointer; font-size: 0.9em; transition: background 0.15s; margin-bottom: 2px;
 }
 .sidebar-btn:hover { background: rgba(255,255,255,0.08); }
-.sidebar-btn.active {
-  background: linear-gradient(135deg, rgba(184,144,42,0.3), rgba(184,144,42,0.15));
-  color: #f5e090;
-  border-left: 2px solid var(--gold);
-  padding-left: 10px;
-}
-.sidebar-btn .icon { width: 20px; text-align: center; font-size: 1em; }
-.sidebar-btn .badge {
-  margin-left: auto;
-  background: rgba(184,144,42,0.25);
-  color: var(--gold-light);
-  font-size: 0.7em;
-  padding: 1px 7px;
-  border-radius: 10px;
-  font-family: Georgia, serif;
-}
-
+.sidebar-btn.active { background: rgba(255,255,255,0.14); color: var(--gold); font-weight: 600; }
+.sidebar-btn .icon { width: 20px; text-align: center; }
+.sidebar-btn .badge { margin-left: auto; background: rgba(255,255,255,0.12); font-size: 0.72em; padding: 1px 7px; border-radius: 10px; }
 .sub-menu { padding-left: 10px; }
 .sub-btn {
   display: flex; align-items: center; gap: 6px;
   width: 100%; padding: 5px 10px;
-  background: none; border: none;
-  color: rgba(232,200,128,0.7); text-align: left;
-  border-radius: 3px;
-  cursor: pointer;
-  font-family: 'EB Garamond', Georgia, serif;
-  font-size: 0.82em;
-  font-style: italic;
-  transition: all 0.15s;
-  margin-bottom: 1px;
+  background: none; border: none; color: rgba(240,230,214,0.65); text-align: left;
+  border-radius: 4px; cursor: pointer; font-size: 0.82em; transition: all 0.15s; margin-bottom: 1px;
 }
-.sub-btn:hover { color: #e8c880; background: rgba(255,255,255,0.06); }
-.sub-btn::before { content: '§'; opacity: 0.4; font-style: normal; }
-
+.sub-btn:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+.sub-btn::before { content: '›'; opacity: 0.5; }
 .sidebar-footer {
-  margin-top: auto;
-  padding: 14px 16px;
-  background: #1e0a02;
-  font-size: 0.72em;
-  text-align: center;
-  color: var(--gold-mid);
-  border-top: 1px solid rgba(184,144,42,0.3);
-  font-style: italic;
-  font-family: 'EB Garamond', Georgia, serif;
+  margin-top: auto; padding: 14px 16px;
+  background: rgba(0,0,0,0.15);
+  font-size: 0.73em; text-align: center;
+  opacity: 0.75; border-top: 1px solid var(--border);
 }
 
-/* ── SAYFA (SAĞ SAYFA) ── */
-.main {
-  margin-left: 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background: var(--paper);
-  background-image:
-    linear-gradient(to bottom, var(--paper) 0%, var(--paper2) 100%);
-  border-radius: 0 6px 6px 0;
-  position: relative;
-  overflow: hidden;
-}
+/* MAIN */
+.main { margin-left: var(--sw); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
 
-/* Sayfa kenarı gölgesi (iç) */
-.main::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  box-shadow: inset 4px 0 12px rgba(0,0,0,0.07), inset -2px 0 6px rgba(0,0,0,0.03);
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* ── BAŞLIK ÇUBUĞU ── */
 .topbar {
-  background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson2) 100%);
-  color: #f8e8c0;
-  padding: 0 32px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
-  border-bottom: 2px solid var(--gold-mid);
+  background: var(--sidebar); color: var(--text);
+  padding: 0 28px; height: 54px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+  border-bottom: 1px solid var(--border);
 }
-.topbar-left h1 {
-  font-family: 'Cinzel', Georgia, serif;
-  font-size: 0.92em;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: #f5e090;
-}
-.topbar-left span { font-size: 0.78em; opacity: 0.7; margin-left: 12px; font-style: italic; }
-.topbar-right { display: flex; align-items: center; gap: 12px; font-size: 0.8em; font-style: italic; }
-.topbar-right .pill {
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.2);
-  padding: 3px 12px;
-  border-radius: 12px;
-  color: #f0d888;
-}
+.topbar-left h1 { font-size: 1em; font-weight: 700; }
+.topbar-left span { font-size: 0.78em; opacity: 0.6; margin-left: 10px; }
+.topbar-right { display: flex; align-items: center; gap: 12px; font-size: 0.82em; }
+.topbar-right .pill { background: rgba(255,255,255,0.1); padding: 3px 12px; border-radius: 12px; color: var(--gold); }
 
-.page { display: none; padding: 36px 40px 48px; position: relative; z-index: 2; }
+.page { display: none; padding: 28px 32px 48px; }
 .page.active { display: block; }
 
-/* Satır çizgisi arka planı */
-.page::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image: repeating-linear-gradient(
-    transparent,
-    transparent 27px,
-    rgba(0,0,0,0.12) 27px,
-    rgba(0,0,0,0.12) 28px
-  );
-  pointer-events: none;
-  z-index: 0;
-}
-.page > * { position: relative; z-index: 1; }
-
-/* ── KONU BAŞLIK BÖLÜMÜ ── */
+/* KONU HERO */
 .konu-hero {
-  background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson2) 100%);
-  color: #f8e8c0;
-  border: 1px solid var(--gold-mid);
-  border-radius: 4px;
-  padding: 28px 36px;
-  margin-bottom: 30px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(107,26,16,0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+  background: var(--sidebar); border: 1px solid var(--border);
+  border-radius: 8px; padding: 26px 32px; margin-bottom: 24px;
+  position: relative; overflow: hidden;
 }
-.konu-hero::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(to right, transparent, var(--gold), transparent);
-}
-.konu-hero::after {
-  content: '☪';
-  position: absolute;
-  right: 24px; top: 50%;
-  transform: translateY(-50%);
-  font-size: 5em;
-  opacity: 0.06;
-}
-.konu-hero h2 {
-  font-family: 'Cinzel', Georgia, serif;
-  font-size: 1.5em;
-  margin-bottom: 8px;
-  color: #f5e090;
-  font-weight: 600;
-}
-.konu-hero p { opacity: 0.85; font-size: 1em; font-style: italic; }
-.konu-hero .meta { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
-.konu-hero .meta span {
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(184,144,42,0.4);
-  padding: 3px 14px;
-  border-radius: 2px;
-  font-size: 0.82em;
-  font-style: normal;
-  color: #f0d888;
-}
+.konu-hero::after { content: '☪'; position: absolute; right: 24px; top: 50%; transform: translateY(-50%); font-size: 5em; opacity: 0.06; }
+.konu-hero h2 { font-size: 1.5em; margin-bottom: 6px; color: var(--gold); }
+.konu-hero p { opacity: 0.8; font-size: 0.95em; }
+.konu-hero .meta { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.konu-hero .meta span { background: rgba(255,255,255,0.1); padding: 3px 12px; border-radius: 12px; font-size: 0.8em; }
 
-/* ── BÖLÜM KARTLARI — AKORDIYON ── */
-.konu-card {
-  background: var(--paper2);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 3px;
-  overflow: hidden;
-  margin-bottom: 14px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25), 2px 2px 0 rgba(0,0,0,0.15);
-}
+/* KONU KART */
+.konu-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
 .konu-card-head {
-  background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson2) 100%);
-  color: #f8e8c0;
-  padding: 14px 22px;
-  display: flex; align-items: center; gap: 12px;
-  cursor: pointer; user-select: none;
-  transition: background 0.2s;
-  border-bottom: 1px solid rgba(184,144,42,0.3);
+  background: var(--sidebar); color: var(--text);
+  padding: 13px 20px; display: flex; align-items: center; gap: 12px;
+  cursor: pointer; user-select: none; transition: background 0.15s;
 }
-.konu-card-head:hover { background: linear-gradient(135deg, var(--crimson2) 0%, var(--crimson3) 100%); }
+.konu-card-head:hover { background: rgba(0,0,0,0.2); }
 .konu-card-head .num {
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(184,144,42,0.5);
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Cinzel', serif;
-  font-weight: 600; font-size: 0.85em;
-  flex-shrink: 0;
-  color: #f5e090;
+  background: rgba(255,255,255,0.15); width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85em; flex-shrink: 0;
 }
 .konu-card-head .head-text { flex: 1; }
-.konu-card-head h3 {
-  font-family: 'Cinzel', Georgia, serif;
-  font-size: 0.95em;
-  font-weight: 600;
-  color: #f5e090;
-  letter-spacing: 0.5px;
-}
-.konu-card-head .sub { font-size: 0.76em; opacity: 0.75; margin-top: 3px; font-style: italic; color: #e8c880; }
-.konu-card-head .chevron { font-size: 0.8em; transition: transform 0.3s; flex-shrink: 0; opacity: 0.8; }
+.konu-card-head h3 { font-size: 1em; font-weight: 600; }
+.konu-card-head .sub { font-size: 0.76em; opacity: 0.65; margin-top: 2px; }
+.konu-card-head .chevron { font-size: 0.85em; transition: transform 0.3s; flex-shrink: 0; opacity: 0.7; }
 .konu-card.collapsed .konu-card-head .chevron { transform: rotate(-90deg); }
-.konu-card-body { padding: 22px 26px; background: var(--paper2); }
+.konu-card-body { padding: 20px 24px; }
 .konu-card.collapsed .konu-card-body { display: none; }
-.konu-card-body p {
-  color: var(--ink);
-  line-height: 1.9;
-  margin-bottom: 12px;
-  font-size: 1em;
-  text-align: justify;
-}
+.konu-card-body p { color: var(--text); line-height: 1.85; margin-bottom: 12px; font-size: 0.96em; }
 
-/* ── AYET & HADİS KUTULARI ── */
+/* AYET & HADİS */
 .ayet-box {
-  background: rgba(0,0,0,0.2);
-  border-left: 3px solid var(--gold);
-  border-top: 1px solid rgba(224,184,74,0.25);
-  border-bottom: 1px solid rgba(224,184,74,0.25);
-  padding: 14px 18px;
-  margin: 16px 0;
-  font-style: italic;
-  color: var(--gold-light);
-  font-size: 0.97em;
-  line-height: 1.85;
-  position: relative;
+  background: rgba(0,0,0,0.15); border-left: 3px solid var(--gold);
+  padding: 12px 16px; margin: 14px 0; font-style: italic; color: var(--gold); font-size: 0.95em; line-height: 1.8;
 }
-.ayet-box::before { content: '"'; position: absolute; left: 18px; top: 8px; font-size: 2.5em; color: var(--gold); opacity: 0.35; line-height: 1; font-style: normal; }
-.ayet-box .ref { font-style: normal; font-size: 0.8em; color: var(--gold-mid); margin-top: 6px; display: block; letter-spacing: 0.5px; }
-
+.ayet-box .ref { font-style: normal; font-size: 0.8em; color: var(--text2); margin-top: 4px; display: block; }
 .hadis-box {
-  background: rgba(0,0,0,0.18);
-  border-left: 3px solid #4db87a;
-  border-top: 1px solid rgba(77,184,122,0.2);
-  border-bottom: 1px solid rgba(77,184,122,0.2);
-  padding: 14px 18px;
-  margin: 16px 0;
-  font-style: italic;
-  color: var(--green-ink);
-  font-size: 0.97em;
-  line-height: 1.85;
+  background: rgba(0,0,0,0.15); border-left: 3px solid #5cc890;
+  padding: 12px 16px; margin: 14px 0; font-style: italic; color: #9de8b8; font-size: 0.95em; line-height: 1.8;
 }
-.hadis-box .ref { font-style: normal; font-size: 0.8em; color: #7dd4a4; margin-top: 6px; display: block; }
+.hadis-box .ref { font-style: normal; font-size: 0.8em; color: var(--text2); margin-top: 4px; display: block; }
 
-/* ── ÖZELLİK GRİDİ ── */
-.ozellik-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 18px 0; }
-.ozellik-item {
-  background: rgba(0,0,0,0.18);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 2px;
-  padding: 13px 15px;
-  box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
-}
-.ozellik-item h5 {
-  font-family: 'Cinzel', serif;
-  color: var(--gold-light);
-  font-size: 0.82em;
-  margin-bottom: 6px;
-  letter-spacing: 0.5px;
-  font-weight: 600;
-}
-.ozellik-item p { font-size: 0.87em; color: var(--ink); margin: 0; line-height: 1.65; }
+/* ÖZELLİK GRİDİ */
+.ozellik-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+.ozellik-item { background: rgba(0,0,0,0.15); border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; }
+.ozellik-item h5 { color: var(--gold); font-size: 0.88em; margin-bottom: 5px; font-weight: 600; }
+.ozellik-item p { font-size: 0.86em; color: var(--text2); margin: 0; line-height: 1.6; }
 
-/* ── TABLO ── */
-.tablo-wrap { overflow-x: auto; margin: 16px 0; border: 1px solid rgba(255,255,255,0.1); border-radius: 2px; }
-table { width: 100%; border-collapse: collapse; font-size: 0.91em; }
-th {
-  background: rgba(0,0,0,0.35);
-  color: var(--gold-light);
-  padding: 10px 14px;
-  text-align: left;
-  font-family: 'Cinzel', serif;
-  font-size: 0.85em;
-  letter-spacing: 0.5px;
-  font-weight: 600;
-}
-td { padding: 9px 14px; border-bottom: 1px solid rgba(255,255,255,0.06); vertical-align: top; color: var(--ink); }
-tr:nth-child(even) td { background: rgba(0,0,0,0.12); }
+/* TABLO */
+.tablo-wrap { overflow-x: auto; margin: 14px 0; border-radius: 6px; border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+th { background: rgba(0,0,0,0.25); color: var(--gold); padding: 10px 14px; text-align: left; font-weight: 600; }
+td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text); }
+tr:nth-child(even) td { background: rgba(0,0,0,0.08); }
 tr:last-child td { border-bottom: none; }
 
-.kavram-kutu {
-  background: rgba(0,0,0,0.2);
-  border: 1px solid rgba(224,184,74,0.25);
-  border-radius: 2px;
-  padding: 14px 18px;
-  margin-top: 18px;
-}
-.kavram-kutu strong { display: block; font-family: 'Cinzel', serif; font-size: 0.72em; color: var(--gold); letter-spacing: 2px; margin-bottom: 10px; font-weight: 600; }
-.ktag {
-  display: inline-block;
-  background: rgba(0,0,0,0.3);
-  color: var(--gold-light);
-  border: 1px solid rgba(224,184,74,0.3);
-  padding: 2px 10px;
-  border-radius: 2px;
-  font-size: 0.78em;
-  margin: 3px;
-  font-family: Georgia, serif;
-  font-style: italic;
-}
+.kavram-kutu { background: rgba(0,0,0,0.15); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px; margin-top: 16px; }
+.kavram-kutu strong { display: block; font-size: 0.75em; color: var(--text2); margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase; }
+.ktag { display: inline-block; background: rgba(255,255,255,0.1); color: var(--text); padding: 2px 10px; border-radius: 10px; font-size: 0.8em; margin: 3px; }
 
-/* ── QUİZ SAYFASI ── */
+/* QUIZ */
 .quiz-hero {
-  background: linear-gradient(135deg, var(--crimson) 0%, #2a0a05 100%);
-  color: #f8e8c0;
-  border: 1px solid var(--gold-mid);
-  border-radius: 3px;
-  padding: 26px 36px;
-  margin-bottom: 24px;
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
-  box-shadow: 0 4px 20px rgba(107,26,16,0.3);
+  background: var(--sidebar); border: 1px solid var(--border);
+  border-radius: 8px; padding: 24px 32px; margin-bottom: 20px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;
 }
-.quiz-hero h2 {
-  font-family: 'Cinzel', Georgia, serif;
-  font-size: 1.35em;
-  margin-bottom: 6px;
-  color: #f5e090;
-  font-weight: 600;
-}
-.quiz-hero p { opacity: 0.8; font-size: 0.95em; font-style: italic; }
-.quiz-stats { display: flex; gap: 16px; flex-wrap: wrap; }
-.stat-box {
-  text-align: center;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(184,144,42,0.3);
-  padding: 10px 18px;
-  border-radius: 2px;
-}
-.stat-box .num { font-family: 'Cinzel', serif; font-size: 1.8em; font-weight: 600; color: #f5e090; }
-.stat-box .lbl { font-size: 0.72em; opacity: 0.8; color: #e8c880; }
+.quiz-hero h2 { font-size: 1.35em; margin-bottom: 4px; color: var(--gold); }
+.quiz-hero p { opacity: 0.75; font-size: 0.93em; }
+.quiz-stats { display: flex; gap: 14px; flex-wrap: wrap; }
+.stat-box { text-align: center; background: rgba(255,255,255,0.08); padding: 10px 18px; border-radius: 8px; border: 1px solid var(--border); }
+.stat-box .num { font-size: 1.8em; font-weight: 800; color: var(--gold); }
+.stat-box .lbl { font-size: 0.73em; opacity: 0.7; }
 
 .quiz-progress-bar {
-  background: rgba(0,0,0,0.2);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 3px;
-  padding: 14px 22px;
-  margin-bottom: 20px;
-  display: flex; align-items: center; gap: 16px;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 12px 20px; margin-bottom: 18px;
+  display: flex; align-items: center; gap: 14px;
 }
-.progress-track { flex: 1; background: rgba(0,0,0,0.3); border-radius: 2px; height: 7px; }
-.progress-fill { background: linear-gradient(to right, var(--gold-mid), var(--gold-light)); height: 7px; border-radius: 2px; transition: width 0.4s; }
-.progress-text { font-size: 0.85em; color: var(--gold-light); font-weight: 600; white-space: nowrap; font-family: 'Cinzel', serif; }
+.progress-track { flex: 1; background: rgba(0,0,0,0.25); border-radius: 4px; height: 7px; }
+.progress-fill { background: var(--gold); height: 7px; border-radius: 4px; transition: width 0.4s; }
+.progress-text { font-size: 0.85em; color: var(--gold); font-weight: 600; white-space: nowrap; }
 
-/* ── SORU BLOKU ── */
-.quiz-block { background: var(--paper2); border: 1px solid rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; margin-bottom: 14px; box-shadow: 0 1px 6px rgba(0,0,0,0.25), 2px 2px 0 rgba(0,0,0,0.15); }
+/* SORU BLOĞU */
+.quiz-block { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
 .quiz-block-head {
-  background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson2) 100%);
-  color: #f8e8c0;
-  padding: 12px 20px;
-  font-family: 'Cinzel', serif;
-  font-size: 0.85em;
-  font-weight: 600;
+  background: var(--sidebar); color: var(--text);
+  padding: 11px 18px; font-size: 0.9em; font-weight: 600;
   display: flex; align-items: center; gap: 10px;
-  cursor: pointer; user-select: none;
-  transition: background 0.2s;
-  letter-spacing: 0.5px;
+  cursor: pointer; user-select: none; transition: background 0.15s;
 }
-.quiz-block-head:hover { filter: brightness(1.1); }
-.quiz-block-head .blk-badge { background: rgba(184,144,42,0.3); padding: 2px 10px; border-radius: 2px; font-size: 0.8em; color: #f5e090; font-family: Georgia, serif; font-style: italic; font-weight: 400; }
-.quiz-block-head .chevron { margin-left: auto; font-size: 0.85em; transition: transform 0.3s; opacity: 0.8; }
+.quiz-block-head:hover { background: rgba(0,0,0,0.2); }
+.quiz-block-head .blk-badge { background: rgba(255,255,255,0.12); padding: 2px 9px; border-radius: 10px; font-size: 0.8em; font-weight: 400; }
+.quiz-block-head .chevron { margin-left: auto; font-size: 0.85em; transition: transform 0.3s; opacity: 0.7; }
 .quiz-block.collapsed .quiz-block-head .chevron { transform: rotate(-90deg); }
 .quiz-block-body { padding: 4px 0; }
 .quiz-block.collapsed .quiz-block-body { display: none; }
 
-/* ── SORULAR ── */
-.soru {
-  padding: 18px 24px;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-  position: relative;
-}
+/* SORULAR */
+.soru { padding: 16px 20px; border-bottom: 1px solid var(--border); }
 .soru:last-child { border-bottom: none; }
-
-/* Soru numarası → sayfa kenar notu gibi */
-.soru-text {
-  font-size: 1em;
-  font-weight: 400;
-  color: var(--ink);
-  margin-bottom: 14px;
-  line-height: 1.75;
-  text-align: justify;
-  font-weight: 500;
-}
+.soru-text { font-size: 0.96em; font-weight: 500; color: var(--text); margin-bottom: 12px; line-height: 1.7; }
 .soru-text .no {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--crimson);
-  color: #f5e090;
-  width: 24px; height: 24px;
-  border-radius: 50%;
-  font-family: 'Cinzel', serif;
-  font-size: 0.75em;
-  font-weight: 600;
-  margin-right: 8px;
-  flex-shrink: 0;
-  vertical-align: middle;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.3); color: var(--gold);
+  width: 24px; height: 24px; border-radius: 50%;
+  font-size: 0.78em; font-weight: 700; margin-right: 8px; flex-shrink: 0; vertical-align: middle;
 }
-
 .secenekler { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 .secenek {
-  display: flex; align-items: flex-start; gap: 8px;
-  padding: 9px 13px;
-  background: rgba(0,0,0,0.18);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 2px;
-  cursor: pointer;
-  font-size: 0.9em;
-  color: var(--ink);
-  transition: all 0.15s;
-  line-height: 1.55;
-  font-family: 'EB Garamond', Georgia, serif;
+  display: flex; align-items: flex-start; gap: 8px; padding: 9px 12px;
+  background: rgba(0,0,0,0.12); border: 1px solid var(--border);
+  border-radius: 6px; cursor: pointer; font-size: 0.9em; color: var(--text);
+  transition: all 0.15s; line-height: 1.5;
 }
-.secenek:hover { background: rgba(0,0,0,0.30); border-color: var(--gold-mid); }
-.secenek.correct { background: rgba(26,74,45,0.5); border-color: #4db87a; border-width: 1.5px; color: #a8e8c0; }
-.secenek.wrong { background: rgba(80,10,10,0.5); border-color: #c04040; border-width: 1.5px; color: #f5a0a0; }
-.secenek .harf {
-  font-family: 'Cinzel', serif;
-  font-weight: 600;
-  color: var(--gold-light);
-  min-width: 18px;
-  font-size: 0.88em;
-}
-.secenek.correct .harf { color: #6de0a0; }
-.secenek.wrong .harf { color: #f5a0a0; }
+.secenek:hover { background: rgba(0,0,0,0.22); border-color: var(--gold); }
+.secenek.correct { background: rgba(30,100,60,0.45); border-color: #5cc890; color: #b0f0d0; }
+.secenek.wrong   { background: rgba(100,20,20,0.45); border-color: #e06060; color: #f8b0b0; }
+.secenek .harf { font-weight: 700; color: var(--gold); min-width: 18px; }
+.secenek.correct .harf { color: #7de8b0; }
+.secenek.wrong .harf   { color: #f8b0b0; }
 .secenek-e { grid-column: 1 / -1; }
 
 .aciklama {
-  margin-top: 10px;
-  padding: 10px 14px;
-  background: rgba(0,0,0,0.22);
-  border-left: 3px solid #4db87a;
-  font-size: 0.87em;
-  color: #a8e8c0;
-  display: none;
-  line-height: 1.7;
-  font-style: italic;
+  margin-top: 8px; padding: 9px 12px;
+  background: rgba(30,100,60,0.2); border-left: 3px solid #5cc890;
+  font-size: 0.85em; color: #9de8b8; display: none; line-height: 1.65;
 }
 .aciklama.show { display: block; }
 
-/* ── BUTONLAR ── */
-.quiz-actions { display: flex; gap: 14px; justify-content: center; padding: 28px 0 10px; flex-wrap: wrap; }
-
+/* BUTONLAR */
+.quiz-actions { display: flex; gap: 12px; justify-content: center; padding: 24px 0 8px; flex-wrap: wrap; }
 .btn-kontrol {
-  background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson2) 100%);
-  color: #f5e090;
-  border: 1px solid rgba(184,144,42,0.4);
-  padding: 12px 36px;
-  border-radius: 2px;
-  font-family: 'Cinzel', serif;
-  font-size: 0.92em;
-  font-weight: 600;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 2px 8px rgba(107,26,16,0.3);
+  background: rgba(0,0,0,0.3); color: var(--gold);
+  border: 1.5px solid var(--gold); padding: 11px 32px;
+  border-radius: 6px; font-size: 0.95em; font-weight: 700; cursor: pointer; transition: all 0.18s;
 }
-.btn-kontrol:hover { filter: brightness(1.15); box-shadow: 0 4px 14px rgba(107,26,16,0.4); }
-
+.btn-kontrol:hover { background: rgba(0,0,0,0.45); }
 .btn-sifirla {
-  background: rgba(0,0,0,0.25);
-  color: var(--gold-light);
-  border: 1.5px solid rgba(224,184,74,0.35);
-  padding: 12px 36px;
-  border-radius: 2px;
-  font-family: 'Cinzel', serif;
-  font-size: 0.92em;
-  font-weight: 600;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: all 0.2s;
+  background: rgba(255,255,255,0.07); color: var(--text2);
+  border: 1.5px solid var(--border); padding: 11px 32px;
+  border-radius: 6px; font-size: 0.95em; font-weight: 600; cursor: pointer; transition: all 0.18s;
 }
-.btn-sifirla:hover { background: rgba(0,0,0,0.4); border-color: var(--gold); }
+.btn-sifirla:hover { background: rgba(255,255,255,0.12); }
 
-/* ── SONUÇ PANELİ ── */
-.sonuc-panel {
-  background: rgba(0,0,0,0.25);
-  border: 1px solid rgba(224,184,74,0.3);
-  border-radius: 3px;
-  padding: 36px;
-  text-align: center;
-  margin: 20px 0;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  display: none;
-}
+/* SONUÇ */
+.sonuc-panel { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 32px; text-align: center; margin: 20px 0; display: none; }
 .sonuc-panel.show { display: block; }
-.sonuc-puan {
-  font-family: 'Cinzel', Georgia, serif;
-  font-size: 4.5em;
-  font-weight: 600;
-  color: var(--gold-light);
-  line-height: 1;
-  margin-bottom: 10px;
-}
-.sonuc-yorum { font-size: 1.15em; color: var(--ink); margin-bottom: 24px; font-style: italic; }
-.sonuc-detay { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
-.sonuc-detay .d-item {
-  text-align: center;
-  background: rgba(0,0,0,0.2);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 2px;
-  padding: 14px 28px;
-}
-.sonuc-detay .d-num { font-family: 'Cinzel', serif; font-size: 2em; font-weight: 600; }
-.sonuc-detay .d-lbl { font-size: 0.78em; color: var(--ink2); margin-top: 2px; font-style: italic; }
-.d-item.dogru .d-num { color: #6de0a0; }
-.d-item.yanlis .d-num { color: #f5a0a0; }
-.d-item.bos .d-num { color: var(--gold-light); }
+.sonuc-puan { font-size: 4em; font-weight: 900; color: var(--gold); line-height: 1; margin-bottom: 8px; }
+.sonuc-yorum { font-size: 1.1em; color: var(--text2); margin-bottom: 20px; }
+.sonuc-detay { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.sonuc-detay .d-item { text-align: center; background: rgba(0,0,0,0.15); border: 1px solid var(--border); border-radius: 8px; padding: 12px 24px; }
+.sonuc-detay .d-num { font-size: 1.8em; font-weight: 800; }
+.sonuc-detay .d-lbl { font-size: 0.78em; color: var(--text2); }
+.d-item.dogru .d-num { color: #7de8b0; }
+.d-item.yanlis .d-num { color: #f8b0b0; }
+.d-item.bos .d-num { color: var(--gold); }
 
-/* ── MOBİL ── */
 @media (max-width: 768px) {
-  body { padding: 0; }
-  .layout { border-radius: 0; max-width: 100%; min-height: 100vh; }
-  .sidebar { width: 220px; position: fixed; height: 100vh; }
-  .main { margin-left: 220px; border-radius: 0; }
-  .layout::before { left: 220px; }
+  .sidebar { width: 220px; }
+  .main { margin-left: 220px; }
   .secenekler { grid-template-columns: 1fr; }
   .secenek-e { grid-column: 1; }
   .ozellik-grid { grid-template-columns: 1fr; }
-  .page { padding: 20px 18px 36px; }
+  .page { padding: 18px; }
   .topbar { padding: 0 16px; }
 }
 @media (max-width: 600px) {
-  .sidebar { transform: translateX(-100%); transition: transform 0.3s; height: 100vh; }
+  .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
   .sidebar.open { transform: translateX(0); }
   .main { margin-left: 0; }
-  .layout::before { display: none; }
 }
 </style>
 </head>
@@ -955,9 +525,9 @@ tr:last-child td { border-bottom: none; }
         <p>İslam ahlak anlayışı, Aristoteles'ten gelen ve İslam filozoflarının (Farabi, İbn Miskeveyh) İslami perspektifle yeniden yorumladığı <strong>dört temel erdem</strong> üzerine inşa edilmiştir. Her erdem, akıl ve irade güçlerinin belirli bir alanında ifade bulur.</p>
 
         <!-- HİKMET -->
-        <div style="background:rgba(0,0,0,0.2);border:1.5px solid rgba(224,184,74,0.4);border-radius:4px;padding:16px 20px;margin:18px 0;">
-          <h4 style="color:var(--gold-light);font-size:1em;margin-bottom:8px;">🏛️ 1. HİKMET — Akıl Gücünün Erdemi</h4>
-          <p style="color:var(--ink);font-size:0.9em;line-height:1.7;margin-bottom:8px;"><strong>Tanım:</strong> Her şeyi yerli yerinde bilmek, gerçeği kavrayarak doğru kararlar almaktır. Akıl gücünün erdemli orta noktasıdır.</p>
+        <div style="background:rgba(0,0,0,0.15);border:1px solid rgba(232,196,96,0.3);border-radius:8px;padding:16px 20px;margin:16px 0;">
+          <h4 style="color:var(--gold);font-size:1em;margin-bottom:8px;">🏛️ 1. HİKMET — Akıl Gücünün Erdemi</h4>
+          <p style="color:var(--text);font-size:0.9em;line-height:1.7;margin-bottom:8px;"><strong>Tanım:</strong> Her şeyi yerli yerinde bilmek, gerçeği kavrayarak doğru kararlar almaktır. Akıl gücünün erdemli orta noktasıdır.</p>
           <div class="tablo-wrap"><table style="font-size:0.85em;">
             <tr><th>Alt Erdemler</th><th>Açıklama</th></tr>
             <tr><td>Zekâ (fetanet)</td><td>Olayları hızlı kavrama yeteneği</td></tr>
@@ -965,13 +535,13 @@ tr:last-child td { border-bottom: none; }
             <tr><td>Tefekkür</td><td>Derin ve sistemli düşünme</td></tr>
             <tr><td>Sağduyu</td><td>Pratik meselelerde doğru karar alma</td></tr>
           </table></div>
-          <p style="color:var(--ink2);font-size:0.85em;margin-top:8px;"><strong>Aşırılıklar (her ikisi de kusur):</strong> Akıl gücünün eksikliği → <em>Cehalet / Ahmaklık</em> &nbsp;|&nbsp; Akıl gücünün aşırılığı → <em>Kurnazlık / Hilekârlık</em></p>
+          <p style="color:var(--text2);font-size:0.85em;margin-top:8px;"><strong>Aşırılıklar (her ikisi de kusur):</strong> Akıl gücünün eksikliği → <em>Cehalet / Ahmaklık</em> &nbsp;|&nbsp; Akıl gücünün aşırılığı → <em>Kurnazlık / Hilekârlık</em></p>
         </div>
 
         <!-- ADALET -->
-        <div style="background:rgba(0,0,0,0.2);border:1.5px solid rgba(91,155,213,0.4);border-radius:4px;padding:16px 20px;margin:18px 0;">
-          <h4 style="color:#90c8f0;font-size:1em;margin-bottom:8px;">⚖️ 2. ADALET — Tüm Güçlerin Dengesi</h4>
-          <p style="color:var(--ink);font-size:0.9em;line-height:1.7;margin-bottom:8px;"><strong>Tanım:</strong> Her hak sahibine hakkını vermek; diğer üç erdemi bir arada tutup dengeleyen üstün erdemdir. "Her şeyi hakkıyla yapmak" anlamına gelir.</p>
+        <div style="background:rgba(0,0,0,0.15);border:1px solid rgba(91,155,213,0.3);border-radius:8px;padding:16px 20px;margin:18px 0;">
+          <h4 style="color:#a0d4f8;font-size:1em;margin-bottom:8px;">⚖️ 2. ADALET — Tüm Güçlerin Dengesi</h4>
+          <p style="color:var(--text);font-size:0.9em;line-height:1.7;margin-bottom:8px;"><strong>Tanım:</strong> Her hak sahibine hakkını vermek; diğer üç erdemi bir arada tutup dengeleyen üstün erdemdir. "Her şeyi hakkıyla yapmak" anlamına gelir.</p>
           <div class="tablo-wrap"><table style="font-size:0.85em;">
             <tr><th>Alt Erdemler</th><th>Açıklama</th></tr>
             <tr><td>Sıdk (doğruluk)</td><td>Söz, düşünce ve eylemde dürüstlük</td></tr>
@@ -980,13 +550,13 @@ tr:last-child td { border-bottom: none; }
             <tr><td>Vefa</td><td>Söz ve sözleşmelere bağlılık</td></tr>
           </table></div>
           <div class="ayet-box" style="margin:10px 0 4px;">"Allah, adaleti, iyilik yapmayı ve akrabaya yardım etmeyi emreder." <span class="ref">Nahl 90</span></div>
-          <p style="color:var(--ink2);font-size:0.85em;margin-top:8px;"><strong>Zıttı:</strong> <em>Zulüm</em> — haksızlık etmek, hakkı gasp etmek</p>
+          <p style="color:var(--text2);font-size:0.85em;margin-top:8px;"><strong>Zıttı:</strong> <em>Zulüm</em> — haksızlık etmek, hakkı gasp etmek</p>
         </div>
 
         <!-- ŞECAAT -->
-        <div style="background:rgba(0,0,0,0.2);border:1.5px solid rgba(224,123,57,0.4);border-radius:4px;padding:16px 20px;margin:18px 0;">
+        <div style="background:rgba(0,0,0,0.15);border:1px solid rgba(224,123,57,0.3);border-radius:8px;padding:16px 20px;margin:18px 0;">
           <h4 style="color:#f0b070;font-size:1em;margin-bottom:8px;">🦁 3. ŞECAAT — Öfke/Güç Gücünün Erdemi</h4>
-          <p style="color:var(--ink);font-size:0.9em;line-height:1.7;margin-bottom:8px;"><strong>Tanım:</strong> Doğru amaçlar için, doğru zamanda ve doğru ölçüde cesaret ve kararlılık göstermektir. Öfke ve güç gücünün orta noktasıdır.</p>
+          <p style="color:var(--text);font-size:0.9em;line-height:1.7;margin-bottom:8px;"><strong>Tanım:</strong> Doğru amaçlar için, doğru zamanda ve doğru ölçüde cesaret ve kararlılık göstermektir. Öfke ve güç gücünün orta noktasıdır.</p>
           <div class="tablo-wrap"><table style="font-size:0.85em;">
             <tr><th>Alt Erdemler</th><th>Açıklama</th></tr>
             <tr><td>Cesaret</td><td>Korkulacak şeyden gereği kadar korkmak</td></tr>
@@ -994,13 +564,13 @@ tr:last-child td { border-bottom: none; }
             <tr><td>Teenni</td><td>Aceleci olmama, düşünerek hareket etme</td></tr>
             <tr><td>Cömertlik</td><td>Malını yerinde ve gerektiği kadar harcamak</td></tr>
           </table></div>
-          <p style="color:var(--ink2);font-size:0.85em;margin-top:8px;"><strong>Aşırılıklar:</strong> Eksiklik → <em>Korkaklık (cübün)</em> &nbsp;|&nbsp; Aşırılık → <em>Saldırganlık / Atılganlık (tehevvür)</em></p>
+          <p style="color:var(--text2);font-size:0.85em;margin-top:8px;"><strong>Aşırılıklar:</strong> Eksiklik → <em>Korkaklık (cübün)</em> &nbsp;|&nbsp; Aşırılık → <em>Saldırganlık / Atılganlık (tehevvür)</em></p>
         </div>
 
         <!-- İFFET -->
-        <div style="background:rgba(0,0,0,0.2);border:1.5px solid rgba(155,89,182,0.4);border-radius:4px;padding:16px 20px;margin:18px 0;">
+        <div style="background:rgba(0,0,0,0.15);border:1px solid rgba(155,89,182,0.3);border-radius:8px;padding:16px 20px;margin:18px 0;">
           <h4 style="color:#d0a0f0;font-size:1em;margin-bottom:8px;">🌸 4. İFFET — Arzu/Şehvet Gücünün Erdemi</h4>
-          <p style="color:var(--ink);font-size:0.9em;line-height:1.7;margin-bottom:8px;"><strong>Tanım:</strong> Nefsin istek ve arzularını aklın ve dinin gösterdiği sınırlar içinde tutmaktır. Arzu gücünün orta noktasıdır.</p>
+          <p style="color:var(--text);font-size:0.9em;line-height:1.7;margin-bottom:8px;"><strong>Tanım:</strong> Nefsin istek ve arzularını aklın ve dinin gösterdiği sınırlar içinde tutmaktır. Arzu gücünün orta noktasıdır.</p>
           <div class="tablo-wrap"><table style="font-size:0.85em;">
             <tr><th>Alt Erdemler</th><th>Açıklama</th></tr>
             <tr><td>Hayâ</td><td>Utanma duygusu; kötülükten kaçındıran iç denetim</td></tr>
@@ -1009,7 +579,7 @@ tr:last-child td { border-bottom: none; }
             <tr><td>Sabır</td><td>Nefsin isteklerine karşı direniş</td></tr>
           </table></div>
           <div class="hadis-box" style="margin:10px 0 4px;">"Hayâ imandan bir şubedir." <span class="ref">Buhârî, İman</span></div>
-          <p style="color:var(--ink2);font-size:0.85em;margin-top:8px;"><strong>Aşırılıklar:</strong> Eksiklik → <em>Hevâya uymak / Sefahat</em> &nbsp;|&nbsp; Aşırılık → <em>Nefsi tamamen bastırma / Ruhbanlık</em></p>
+          <p style="color:var(--text2);font-size:0.85em;margin-top:8px;"><strong>Aşırılıklar:</strong> Eksiklik → <em>Hevâya uymak / Sefahat</em> &nbsp;|&nbsp; Aşırılık → <em>Nefsi tamamen bastırma / Ruhbanlık</em></p>
         </div>
 
         <!-- ÖZET TABLO -->
