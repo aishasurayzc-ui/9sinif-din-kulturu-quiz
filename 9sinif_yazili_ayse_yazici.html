@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9. Sınıf Yazılı Çalışması – Din Kültürü | Ayşe Yazıcı</title>
+<style>
+:root {
+  --bordo: #6b0f1a;
+  --bordo2: #8b1a2a;
+  --bordo3: #a52535;
+  --bordo-light: #f9eced;
+  --bordo-mid: #e8c0c5;
+  --gold: #c9a84c;
+  --gold-light: #f5e6c0;
+  --white: #fff;
+  --gray: #f4f1f0;
+  --text: #1a0a0c;
+  --text2: #4a2028;
+  --sidebar-w: 260px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0ebec; color: var(--text); min-height: 100vh; }
+
+.layout { display: flex; min-height: 100vh; }
+
+/* SIDEBAR */
+.sidebar {
+  width: var(--sidebar-w); background: var(--bordo); color: white;
+  position: fixed; top: 0; left: 0; bottom: 0;
+  display: flex; flex-direction: column; overflow-y: auto; z-index: 100;
+}
+.sidebar-brand { background: #4a0810; padding: 22px 18px 16px; text-align: center; border-bottom: 2px solid var(--gold); }
+.sidebar-brand .logo { font-size: 2em; margin-bottom: 6px; }
+.sidebar-brand h2 { font-size: 0.9em; font-weight: 700; letter-spacing: 0.5px; line-height: 1.4; }
+.sidebar-brand .alt { font-size: 0.75em; opacity: 0.75; margin-top: 4px; }
+.sidebar-section { padding: 14px 12px 6px; }
+.sidebar-section-title { font-size: 0.7em; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; padding: 0 6px; margin-bottom: 6px; }
+.sidebar-btn {
+  display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px;
+  background: none; border: none; color: white; text-align: left; border-radius: 8px;
+  cursor: pointer; font-size: 0.9em; font-weight: 500; transition: background 0.2s; margin-bottom: 2px;
+}
+.sidebar-btn:hover { background: rgba(255,255,255,0.12); }
+.sidebar-btn.active { background: var(--gold); color: var(--bordo); font-weight: 700; }
+.sidebar-btn .icon { font-size: 1.1em; width: 22px; text-align: center; }
+.sidebar-btn .badge { margin-left: auto; background: rgba(255,255,255,0.2); font-size: 0.72em; padding: 1px 7px; border-radius: 10px; }
+.sidebar-btn.active .badge { background: rgba(107,15,26,0.25); }
+.sub-menu { padding-left: 12px; }
+.sub-btn {
+  display: flex; align-items: center; gap: 8px; width: 100%; padding: 7px 10px;
+  background: none; border: none; color: rgba(255,255,255,0.8); text-align: left;
+  border-radius: 6px; cursor: pointer; font-size: 0.82em; transition: all 0.15s; margin-bottom: 1px;
+}
+.sub-btn:hover { background: rgba(255,255,255,0.1); color: white; }
+.sub-btn::before { content: '›'; opacity: 0.5; }
+.sidebar-footer { margin-top: auto; padding: 14px 16px; background: #3d0810; font-size: 0.75em; text-align: center; opacity: 0.8; border-top: 1px solid rgba(255,255,255,0.1); }
+
+/* MAIN */
+.main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+.topbar {
+  background: var(--bordo2); color: white; padding: 0 32px; height: 58px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50; box-shadow: 0 2px 8px rgba(107,15,26,0.3);
+}
+.topbar-left h1 { font-size: 1.05em; font-weight: 700; }
+.topbar-left span { font-size: 0.78em; opacity: 0.75; margin-left: 10px; }
+.topbar-right { display: flex; align-items: center; gap: 14px; font-size: 0.82em; }
+.topbar-right .pill { background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 12px; }
+.page { display: none; padding: 32px; }
+.page.active { display: block; }
+
+/* KONU HERO */
+.konu-hero {
+  background: linear-gradient(135deg, var(--bordo) 0%, var(--bordo3) 100%);
+  color: white; border-radius: 14px; padding: 32px 36px; margin-bottom: 28px;
+  position: relative; overflow: hidden;
+}
+.konu-hero::after { content: '☪'; position: absolute; right: 30px; top: 50%; transform: translateY(-50%); font-size: 5em; opacity: 0.08; }
+.konu-hero h2 { font-size: 1.7em; margin-bottom: 6px; }
+.konu-hero p { opacity: 0.85; font-size: 0.97em; }
+.konu-hero .meta { display: flex; gap: 16px; margin-top: 14px; flex-wrap: wrap; }
+.konu-hero .meta span { background: rgba(255,255,255,0.15); padding: 4px 14px; border-radius: 12px; font-size: 0.82em; }
+
+/* KONU KART — ACCORDION */
+.konu-card { background: white; border-radius: 12px; overflow: hidden; margin-bottom: 16px; box-shadow: 0 2px 12px rgba(107,15,26,0.08); }
+.konu-card-head {
+  background: var(--bordo); color: white; padding: 16px 24px;
+  display: flex; align-items: center; gap: 12px;
+  cursor: pointer; user-select: none; transition: background 0.2s;
+}
+.konu-card-head:hover { background: var(--bordo2); }
+.konu-card-head .num {
+  background: rgba(255,255,255,0.2); width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.95em; flex-shrink: 0;
+}
+.konu-card-head .head-text { flex: 1; }
+.konu-card-head h3 { font-size: 1.08em; }
+.konu-card-head .sub { font-size: 0.78em; opacity: 0.75; margin-top: 2px; }
+.konu-card-head .chevron { font-size: 0.85em; transition: transform 0.3s; flex-shrink: 0; opacity: 0.9; }
+.konu-card.collapsed .konu-card-head .chevron { transform: rotate(-90deg); }
+.konu-card-body { padding: 22px 24px; }
+.konu-card.collapsed .konu-card-body { display: none; }
+.konu-card-body p { color: #3a1a1e; line-height: 1.8; margin-bottom: 12px; font-size: 0.96em; }
+
+.ayet-box {
+  background: var(--gold-light); border-left: 4px solid var(--gold); border-radius: 0 8px 8px 0;
+  padding: 13px 16px; margin: 14px 0; font-style: italic; color: #5a3a00; font-size: 0.93em; line-height: 1.7;
+}
+.ayet-box .ref { font-style: normal; font-size: 0.82em; color: #888; margin-top: 4px; display: block; }
+.hadis-box {
+  background: #f0f7f2; border-left: 4px solid #2d7a4f; border-radius: 0 8px 8px 0;
+  padding: 13px 16px; margin: 14px 0; font-style: italic; color: #1a3d2d; font-size: 0.93em; line-height: 1.7;
+}
+.hadis-box .ref { font-style: normal; font-size: 0.82em; color: #888; margin-top: 4px; display: block; }
+.ozellik-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.ozellik-item { background: var(--bordo-light); border: 1px solid var(--bordo-mid); border-radius: 8px; padding: 12px 14px; }
+.ozellik-item h5 { color: var(--bordo); font-size: 0.9em; margin-bottom: 5px; }
+.ozellik-item p { font-size: 0.85em; color: #4a2028; margin: 0; }
+.tablo-wrap { overflow-x: auto; margin: 16px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+th { background: var(--bordo); color: white; padding: 10px 14px; text-align: left; }
+td { padding: 9px 14px; border-bottom: 1px solid #ead8da; vertical-align: top; }
+tr:nth-child(even) td { background: var(--bordo-light); }
+tr:last-child td { border-bottom: none; }
+.kavram-kutu { background: var(--bordo-light); border: 1px solid var(--bordo-mid); border-radius: 8px; padding: 14px 18px; margin-top: 18px; }
+.kavram-kutu strong { display: block; font-size: 0.82em; color: #888; margin-bottom: 8px; }
+.ktag { display: inline-block; background: var(--bordo); color: white; padding: 3px 11px; border-radius: 12px; font-size: 0.8em; margin: 3px; }
+
+/* QUIZ */
+.quiz-hero {
+  background: linear-gradient(135deg, var(--bordo) 0%, #3d0810 100%); color: white;
+  border-radius: 14px; padding: 28px 36px; margin-bottom: 28px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+}
+.quiz-hero h2 { font-size: 1.5em; margin-bottom: 4px; }
+.quiz-hero p { opacity: 0.8; font-size: 0.93em; }
+.quiz-stats { display: flex; gap: 20px; flex-wrap: wrap; }
+.stat-box { text-align: center; background: rgba(255,255,255,0.12); padding: 10px 20px; border-radius: 10px; }
+.stat-box .num { font-size: 1.8em; font-weight: 800; color: var(--gold); }
+.stat-box .lbl { font-size: 0.75em; opacity: 0.8; }
+.quiz-progress-bar {
+  background: white; border-radius: 12px; padding: 16px 24px; margin-bottom: 24px;
+  box-shadow: 0 2px 10px rgba(107,15,26,0.08); display: flex; align-items: center; gap: 16px;
+}
+.progress-track { flex: 1; background: #ead8da; border-radius: 4px; height: 8px; }
+.progress-fill { background: var(--bordo); height: 8px; border-radius: 4px; transition: width 0.4s; }
+.progress-text { font-size: 0.85em; color: var(--bordo); font-weight: 700; white-space: nowrap; }
+
+/* QUIZ BLOK — ACCORDION */
+.quiz-block { background: white; border-radius: 12px; overflow: hidden; margin-bottom: 16px; box-shadow: 0 2px 12px rgba(107,15,26,0.07); }
+.quiz-block-head {
+  background: var(--bordo); color: white; padding: 13px 22px;
+  font-size: 0.92em; font-weight: 700; display: flex; align-items: center; gap: 10px;
+  cursor: pointer; user-select: none; transition: background 0.2s;
+}
+.quiz-block-head:hover { background: var(--bordo2); }
+.quiz-block-head .blk-badge { background: rgba(255,255,255,0.2); padding: 2px 10px; border-radius: 10px; font-size: 0.8em; }
+.quiz-block-head .chevron { margin-left: auto; font-size: 0.85em; transition: transform 0.3s; opacity: 0.9; }
+.quiz-block.collapsed .quiz-block-head .chevron { transform: rotate(-90deg); }
+.quiz-block-body { padding: 6px 0; }
+.quiz-block.collapsed .quiz-block-body { display: none; }
+
+/* SORULAR — 5 ŞIKLI */
+.soru { padding: 18px 22px; border-bottom: 1px solid #f0e8ea; }
+.soru:last-child { border-bottom: none; }
+.soru-text { font-size: 0.95em; font-weight: 600; color: #1a0a0c; margin-bottom: 12px; line-height: 1.6; }
+.soru-text .no {
+  display: inline-block; background: var(--bordo); color: white;
+  width: 26px; height: 26px; border-radius: 50%; text-align: center;
+  line-height: 26px; font-size: 0.85em; margin-right: 8px; flex-shrink: 0;
+}
+.secenekler { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.secenek {
+  display: flex; align-items: flex-start; gap: 8px; padding: 9px 12px;
+  background: #faf5f6; border: 1.5px solid #ead8da; border-radius: 7px;
+  cursor: pointer; font-size: 0.88em; color: #3a1a1e; transition: all 0.15s; line-height: 1.5;
+}
+.secenek:hover { background: var(--bordo-light); border-color: var(--bordo3); }
+.secenek.selected { background: #f0e0e3; border-color: var(--bordo); }
+.secenek.correct { background: #d4f0de; border-color: #2d7a4f; color: #1a4a2d; }
+.secenek.wrong { background: #fde8e8; border-color: #c0392b; color: #6b1515; }
+.secenek .harf { font-weight: 700; color: var(--bordo); min-width: 18px; }
+.secenek.correct .harf { color: #2d7a4f; }
+.secenek.wrong .harf { color: #c0392b; }
+/* E şıkkı — tam satır */
+.secenek-e { grid-column: 1 / -1; }
+.aciklama {
+  margin-top: 10px; padding: 9px 12px; background: #f0f7f2;
+  border-left: 3px solid #2d7a4f; border-radius: 0 6px 6px 0;
+  font-size: 0.84em; color: #1a3d2d; display: none; line-height: 1.6;
+}
+.aciklama.show { display: block; }
+
+/* BUTONLAR */
+.quiz-actions { display: flex; gap: 12px; justify-content: center; padding: 24px 0 8px; flex-wrap: wrap; }
+.btn-kontrol { background: var(--bordo); color: white; border: none; padding: 12px 30px; border-radius: 8px; font-size: 1em; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+.btn-kontrol:hover { background: var(--bordo3); }
+.btn-sifirla { background: white; color: var(--bordo); border: 2px solid var(--bordo); padding: 12px 30px; border-radius: 8px; font-size: 1em; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.btn-sifirla:hover { background: var(--bordo-light); }
+
+/* SONUÇ */
+.sonuc-panel { background: white; border-radius: 14px; padding: 32px; text-align: center; margin: 20px 0; box-shadow: 0 4px 20px rgba(107,15,26,0.12); display: none; }
+.sonuc-panel.show { display: block; }
+.sonuc-puan { font-size: 4em; font-weight: 900; color: var(--bordo); line-height: 1; margin-bottom: 8px; }
+.sonuc-yorum { font-size: 1.1em; color: #4a2028; margin-bottom: 20px; }
+.sonuc-detay { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 20px; }
+.sonuc-detay .d-item { text-align: center; background: var(--bordo-light); border: 1px solid var(--bordo-mid); border-radius: 10px; padding: 12px 24px; }
+.sonuc-detay .d-num { font-size: 1.8em; font-weight: 800; }
+.sonuc-detay .d-lbl { font-size: 0.8em; color: #888; }
+.d-item.dogru .d-num { color: #2d7a4f; }
+.d-item.yanlis .d-num { color: #c0392b; }
+.d-item.bos .d-num { color: var(--bordo); }
+
+@media (max-width: 768px) {
+  .sidebar { width: 220px; } .main { margin-left: 220px; }
+  .secenekler { grid-template-columns: 1fr; }
+  .secenek-e { grid-column: 1; }
+  .ozellik-grid { grid-template-columns: 1fr; }
+  .page { padding: 18px; } .topbar { padding: 0 16px; }
+}
+@media (max-width: 600px) {
+  .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="logo">📖</div>
+    <h2>Din Kültürü ve Ahlak Bilgisi</h2>
+    <div class="alt">9. Sınıf Yazılı Çalışması</div>
+    <div class="alt" style="margin-top:6px;color:#c9a84c;font-weight:600;">Ayşe Yazıcı</div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Bölümler</div>
+    <button class="sidebar-btn active" onclick="showPage('konu')" id="btn-konu"><span class="icon">📚</span> Konu Anlatımı</button>
+    <button class="sidebar-btn" onclick="showPage('quiz')" id="btn-quiz"><span class="icon">✏️</span> Quiz <span class="badge">50 Soru</span></button>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Konu Anlatımı</div>
+    <div class="sub-menu">
+      <button class="sub-btn" onclick="showPage('konu');goTo('teblig')">Tebliğ</button>
+      <button class="sub-btn" onclick="showPage('konu');goTo('tesri')">Teşri</button>
+      <button class="sub-btn" onclick="showPage('konu');goTo('tebyin')">Tebyin</button>
+      <button class="sub-btn" onclick="showPage('konu');goTo('temsil')">Temsil</button>
+      <button class="sub-btn" onclick="showPage('konu');goTo('sifatlar')">Peygamber Sıfatları</button>
+      <button class="sub-btn" onclick="showPage('konu');goTo('evrensel')">Evrensel Risalet</button>
+      <button class="sub-btn" onclick="showPage('konu');goTo('ahlak-tanim')">⚗️ Ahlakın Tanımı</button>
+      <button class="sub-btn" onclick="showPage('konu');goTo('ahlak-kaynaklar')">📜 Ahlakın Kaynakları</button>
+      <button class="sub-btn" onclick="showPage('konu');goTo('dort-erdem')">🏛️ Dört Temel Erdem</button>
+      <button class="sub-btn" onclick="showPage('konu');goTo('guzel-ahlak')">✨ Güzel Ahlak</button>
+    </div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Quiz</div>
+    <div class="sub-menu">
+      <button class="sub-btn" onclick="showPage('quiz');goTo('sorular-all')">50 Soru — Tümü</button>
+    </div>
+  </div>
+  <div class="sidebar-footer">© 2026 · 9. Sınıf · Din Kültürü<br>Ayşe Yazıcı</div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>9. Sınıf Yazılı Çalışması</h1>
+      <span>Din Kültürü ve Ahlak Bilgisi</span>
+    </div>
+    <div class="topbar-right">
+      <span class="pill">👩‍🎓 Ayşe Yazıcı</span>
+      <span class="pill">5. Ünite</span>
+    </div>
+  </div>
+
+  <!-- KONU SAYFASI -->
+  <div class="page active" id="page-konu">
+    <div class="konu-hero">
+      <div>
+        <h2>Hz. Muhammed'in Peygamberlik Görevleri</h2>
+        <p>Kur'an'a Göre Hz. Muhammed — 5. Ünite Konu Anlatımı</p>
+        <div class="meta">
+          <span>📢 Tebliğ</span><span>⚖️ Teşri</span><span>📖 Tebyin</span><span>🌟 Temsil</span><span>Peygamber Sıfatları</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEBLİĞ -->
+    <div class="konu-card" id="teblig">
+      <div class="konu-card-head" onclick="toggleKonu('teblig')">
+        <div class="num">1</div>
+        <div class="head-text"><h3>📢 Tebliğ — İletme Görevi</h3><div class="sub">Vahyi eksiksiz, değiştirmeden ve çekinmeden iletmek</div></div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="konu-card-body">
+        <p>Tebliğ; Allah'tan alınan vahyi hiçbir ekleme, çıkarma veya değiştirme yapmaksızın insanlara ulaştırmaktır. "Bir şeyi hedefe eksiksiz ulaştırmak" anlamına gelir. Peygamberlik görevinin ilk ve en temel halkasıdır; diğer tüm görevler tebliğin üzerine inşa edilir.</p>
+        <div class="ayet-box">"Ey Peygamber! Rabbinden sana indirileni tebliğ et. Eğer bunu yapmazsan O'nun elçiliğini yerine getirmemiş olursun. Allah seni insanlardan koruyacaktır." <span class="ref">Maide Suresi, 67</span></div>
+        <div class="ayet-box">"Peygambere düşen, sadece açıkça tebliğ etmektir." <span class="ref">Nûr Suresi, 54</span></div>
+        <div class="ozellik-grid">
+          <div class="ozellik-item"><h5>📌 Eksiksizlik</h5><p>Vahyin tamamı iletilmek zorundadır. Toplumun hoşuna gitmese de hiçbir hüküm gizlenemez. Tebbet suresi en çarpıcı örnektir.</p></div>
+          <div class="ozellik-item"><h5>🕊️ Baskısızlık</h5><p>"Dinde zorlama yoktur" (Bakara 256). Tebliğ dayatma değil, davettir. "Hikmetle ve güzel öğütle davet et" (Nahl 125).</p></div>
+          <div class="ozellik-item"><h5>🌍 Evrensellik</h5><p>Hz. Peygamber Bizans, Sasani, Habeş ve Mısır hükümdarlarına mektuplar yazmıştır.</p></div>
+          <div class="ozellik-item"><h5>⏳ Süreklilik</h5><p>Hira Mağarası'ndan Veda Hutbesi'ne 23 yıl boyunca kesintisiz sürmüştür.</p></div>
+        </div>
+        <div class="hadis-box">"Tebliğ ettim mi?" — Sahabe: "Evet." — Hz. Peygamber: "Allah'ım, sen de şahit ol!" <span class="ref">Veda Hutbesi</span></div>
+        <div class="kavram-kutu"><strong>📌 Anahtar Kavramlar</strong><span class="ktag">eksiksiz iletme</span><span class="ktag">davet</span><span class="ktag">baskısızlık</span><span class="ktag">Maide 67</span><span class="ktag">Nahl 125</span></div>
+      </div>
+    </div>
+
+    <!-- TEŞRİ -->
+    <div class="konu-card" id="tesri">
+      <div class="konu-card-head" onclick="toggleKonu('tesri')">
+        <div class="num">2</div>
+        <div class="head-text"><h3>⚖️ Teşri — Hüküm Koyma Görevi</h3><div class="sub">Vahyin rehberliğiyle bağlayıcı hükümler belirleme yetkisi</div></div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="konu-card-body">
+        <p>Teşri; şeriat kelimesiyle aynı kökten gelir ve "hüküm koymak, kanun belirlemek" anlamı taşır. Hz. Peygamber'in vahyin rehberliğiyle dini ve toplumsal alanlarda bağlayıcı hükümler koyma yetkisidir.</p>
+        <div class="ayet-box">"O, kendi heva ve hevesinden konuşmaz; o söyledikleri vahyedilen bir vahiyden başkası değildir." <span class="ref">Necm Suresi, 3-4</span></div>
+        <div class="ayet-box">"Peygamber size ne verdiyse onu alın; size ne yasakladıysa ondan kaçının." <span class="ref">Haşr Suresi, 7</span></div>
+        <p><strong>1. Kur'an'ı tamamlayan hükümler:</strong> Namazın vakitleri ve rekâtları Hz. Peygamber tarafından teşri edilmiştir.</p>
+        <p><strong>2. Kur'an'ın açık bıraktığı alanlar:</strong> Miras hukuku, nikâh şartları, ticari sözleşmeler sünnetle düzenlenmiştir.</p>
+        <p><strong>3. Bağımsız içtihat:</strong> Vahiy gelmediği durumlarda Hz. Peygamber kendi içtihadıyla hüküm vermiştir.</p>
+        <div class="kavram-kutu"><strong>📌 Anahtar Kavramlar</strong><span class="ktag">şeriat</span><span class="ktag">sünnet</span><span class="ktag">içtihat</span><span class="ktag">bağlayıcı hüküm</span><span class="ktag">Necm 3-4</span><span class="ktag">Haşr 7</span></div>
+      </div>
+    </div>
+
+    <!-- TEBYİN -->
+    <div class="konu-card" id="tebyin">
+      <div class="konu-card-head" onclick="toggleKonu('tebyin')">
+        <div class="num">3</div>
+        <div class="head-text"><h3>📖 Tebyin — Açıklama ve Beyan Görevi</h3><div class="sub">Vahyi anlaşılır kılmak; Kur'an ile hayat arasındaki köprü</div></div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="konu-card-body">
+        <p>Tebyin; "açıklamak, netleştirmek, anlaşılır kılmak" demektir. Kur'an'ın mücmel bıraktığı hükümleri detaylandırmak ve vahyin hayatta nasıl uygulanacağını göstermektir.</p>
+        <div class="ayet-box">"Sana da bu Kur'an'ı indirdik ki, insanlara ne indirildiğini açıklayasın." <span class="ref">Nahl Suresi, 44</span></div>
+        <div class="ozellik-grid">
+          <div class="ozellik-item"><h5>🗣️ Kavli Tebyin</h5><p>Sözle açıklama. Enam 82'deki "zulüm" kelimesini Lokman 13 ile açıklaması klasik örnektir.</p></div>
+          <div class="ozellik-item"><h5>🤲 Fiili Tebyin</h5><p>Uygulayarak açıklama. Namazı ve haccı bizzat yaparak göstermiştir.</p></div>
+          <div class="ozellik-item"><h5>✅ Takriri Tebyin</h5><p>Sahabenin doğru uygulamasını sessiz onaylaması da bir tebyin biçimidir.</p></div>
+          <div class="ozellik-item"><h5>📝 Yazılı Tebyin</h5><p>Kâtiplerine yazdırdığı hükümler ve Medine Vesikası bu türün belgesidir.</p></div>
+        </div>
+        <div class="kavram-kutu"><strong>📌 Anahtar Kavramlar</strong><span class="ktag">beyan</span><span class="ktag">mücmel</span><span class="ktag">müteşabih</span><span class="ktag">Nahl 44</span><span class="ktag">kavli–fiili–takriri</span></div>
+      </div>
+    </div>
+
+    <!-- TEMSİL -->
+    <div class="konu-card" id="temsil">
+      <div class="konu-card-head" onclick="toggleKonu('temsil')">
+        <div class="num">4</div>
+        <div class="head-text"><h3>🌟 Temsil — Yaşayarak Örnekleme Görevi</h3><div class="sub">Usve-i hasene: Kur'an ahlakını hayatında somutlaştırmak</div></div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="konu-card-body">
+        <p>Temsil; İslam'ın insan tarafından yaşanabilirliğini bizzat hayatında göstermektir. Tebliğ "söyle", tebyin "açıkla", temsil "yaşa ve göster" demektir.</p>
+        <div class="ayet-box">"Andolsun, Allah'ın Resulünde sizin için güzel bir örnek (usve-i hasene) vardır." <span class="ref">Ahzab Suresi, 21</span></div>
+        <div class="hadis-box">"Hz. Peygamber'in ahlakı nasıldı?" sorusuna Hz. Aişe: "O'nun ahlakı Kur'an'dı." <span class="ref">Müslim, Müsafirin</span></div>
+        <p><strong>Aile:</strong> Ev işlerine yardım etmiş, torunlarını omuzunda taşımıştır.</p>
+        <p><strong>Sosyal:</strong> Mescid-i Nebevi inşaatında bizzat taş taşımış, Hendek'te hendek kazmıştır.</p>
+        <p><strong>Ahlak:</strong> Mekke'nin fethinde "Gidin, hepiniz serbestsiniz" diyerek affı yaşayan bir gerçek kılmıştır.</p>
+        <p><strong>Devlet:</strong> Medine Vesikası, hakkaniyetli yönetimin belgesidir.</p>
+        <div class="kavram-kutu"><strong>📌 Anahtar Kavramlar</strong><span class="ktag">usve-i hasene</span><span class="ktag">Ahzab 21</span><span class="ktag">canlı örnek</span><span class="ktag">yaşayan Kur'an</span></div>
+      </div>
+    </div>
+
+    <!-- PEYGAMBER SIFATLARI -->
+    <div class="konu-card" id="sifatlar">
+      <div class="konu-card-head" onclick="toggleKonu('sifatlar')">
+        <div class="num">5</div>
+        <div class="head-text"><h3>Peygamberlerin Zorunlu Sıfatları</h3><div class="sub">Sıdk · Emanet · Tebliğ · İsmet · Fetanet</div></div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="konu-card-body">
+        <div class="tablo-wrap">
+          <table>
+            <tr><th>Sıfat</th><th>Anlamı</th><th>Zıddı</th></tr>
+            <tr><td><strong>Sıdk</strong></td><td>Söz, düşünce ve eylemde tam dürüstlük. "Emin" lakabını bu sıfatıyla kazandı.</td><td>Kizb (yalan)</td></tr>
+            <tr><td><strong>Emanet</strong></td><td>Güvenilirlik; en küçük ihanete düşmemek.</td><td>Hıyanet</td></tr>
+            <tr><td><strong>Tebliğ</strong></td><td>Vahyi eksiksiz iletmek; hiçbir hükmü gizlememek.</td><td>Kitman (gizleme)</td></tr>
+            <tr><td><strong>İsmet</strong></td><td>Büyük günahlardan Allah'ın korumasıyla arınmış olmak.</td><td>Günah işlemek</td></tr>
+            <tr><td><strong>Fetanet</strong></td><td>Üstün akıl, derin kavrayış ve keskin zekâ.</td><td>Belâdet</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVRENSEL RİSALET -->
+    <div class="konu-card" id="evrensel">
+      <div class="konu-card-head" onclick="toggleKonu('evrensel')">
+        <div class="num">6</div>
+        <div class="head-text"><h3>Evrensel Risalet ve Dört Görevin Özeti</h3><div class="sub">Tüm insanlığa gönderilen son peygamber</div></div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="konu-card-body">
+        <div class="ayet-box">"Biz seni ancak âlemlere rahmet olarak gönderdik." <span class="ref">Enbiya Suresi, 107</span></div>
+        <div class="ayet-box">"O, Allah'ın Resulü ve peygamberlerin sonuncusudur (Hâtemü'n-Nebiyyîn)." <span class="ref">Ahzab Suresi, 40</span></div>
+        <div class="tablo-wrap" style="margin-top:14px;">
+          <table>
+            <tr><th>Görev</th><th>Sorusu</th><th>İşlevi</th><th>Eksik Kalsaydı</th></tr>
+            <tr><td><strong>📢 Tebliğ</strong></td><td>Ne söylendi?</td><td>Vahyi eksiksiz iletmek</td><td>Mesaj ulaşmazdı</td></tr>
+            <tr><td><strong>⚖️ Teşri</strong></td><td>Ne hükmetti?</td><td>Bağlayıcı kural koymak</td><td>Hükümler belirsiz kalırdı</td></tr>
+            <tr><td><strong>📖 Tebyin</strong></td><td>Ne anlatıldı?</td><td>Vahyi açıklamak</td><td>Anlam bulanık olurdu</td></tr>
+            <tr><td><strong>🌟 Temsil</strong></td><td>Nasıl yaşandı?</td><td>Vahyi hayatında göstermek</td><td>İdeal karşılıksız kalırdı</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- AHLAK BÖLÜMÜ BAŞLIĞI -->
+    <div style="background:linear-gradient(135deg,#3d0047 0%,#6b0f1a 100%);color:white;border-radius:14px;padding:28px 36px;margin:32px 0 20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:4.5em;opacity:0.09;">⚖️</div>
+      <h2 style="font-size:1.5em;margin-bottom:6px;">İslam'da Ahlak İlkeleri</h2>
+      <p style="opacity:0.85;font-size:0.95em;">Ahlakın tanımı · Kaynakları · Dört Temel Erdem · Güzel Ahlak</p>
+      <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap;">
+        <span style="background:rgba(255,255,255,0.15);padding:3px 13px;border-radius:11px;font-size:0.8em;">🏛️ Hikmet</span>
+        <span style="background:rgba(255,255,255,0.15);padding:3px 13px;border-radius:11px;font-size:0.8em;">⚖️ Adalet</span>
+        <span style="background:rgba(255,255,255,0.15);padding:3px 13px;border-radius:11px;font-size:0.8em;">🦁 Şecaat</span>
+        <span style="background:rgba(255,255,255,0.15);padding:3px 13px;border-radius:11px;font-size:0.8em;">🌸 İffet</span>
+      </div>
+    </div>
+
+    <!-- AHLAK TANIM -->
+    <div class="konu-card" id="ahlak-tanim">
+      <div class="konu-card-head" onclick="toggleKonu('ahlak-tanim')">
+        <div class="num">7</div>
+        <div class="head-text"><h3>⚗️ Ahlakın Tanımı ve Önemi</h3><div class="sub">Hulk · Karakter · Fiil · İrade · Değer</div></div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="konu-card-body">
+        <p><strong>Ahlak</strong>, Arapça "hulk" (huy, karakter, tabiat) kelimesinin çoğuludur. Bir insanın düşünce, söz ve eylemlerini yönlendiren, alışkanlık hâline gelmiş kalıcı karakter özelliklerinin bütünüdür.</p>
+        <div class="ayet-box">"Sen elbette yüce bir ahlak üzerindesin." <span class="ref">Kalem Suresi, 4</span></div>
+        <div class="ayet-box">"Şüphesiz ki Allah, adaleti, iyilik yapmayı ve akrabaya yardım etmeyi emreder; hayâsızlığı, kötülüğü ve azgınlığı yasaklar." <span class="ref">Nahl Suresi, 90</span></div>
+        <div class="ozellik-grid">
+          <div class="ozellik-item"><h5>🔍 Tanım</h5><p>Ahlak; doğruyu yanlıştan, iyiyi kötüden ayırt eden ve bu doğrultuda hareket etmeyi sağlayan kalıcı karakter özelliklerinin bütünüdür.</p></div>
+          <div class="ozellik-item"><h5>🎯 Ahlakın Amacı</h5><p>Bireyin hem dünya hem ahiret mutluluğunu sağlamak; toplumda huzuru, adaleti ve dayanışmayı tesis etmektir.</p></div>
+          <div class="ozellik-item"><h5>🧠 Ahlak ve İrade</h5><p>Ahlaki eylemler özgür iradeyle gerçekleştirilir. İrade olmayan yerde ahlaki sorumluluk da yoktur. Bu nedenle çocuklar ve akıl hastaları mükellef değildir.</p></div>
+          <div class="ozellik-item"><h5>🔄 Ahlak Kazanılabilir mi?</h5><p>Evet. İslam'a göre ahlak, doğuştan gelen bir yapı olduğu kadar eğitim, alışkanlık ve çabayla geliştirilebilir. "Nefsini arındıran kurtuluşa ermiştir." (Şems 9)</p></div>
+        </div>
+        <p><strong>Ahlakın Üç Boyutu:</strong></p>
+        <p><strong>1. Bireysel ahlak:</strong> Kişinin kendine karşı sorumlulukları — bedenini korumak, zihnini geliştirmek, nefsini arındırmak.</p>
+        <p><strong>2. Toplumsal ahlak:</strong> Diğer insanlara karşı sorumluluklar — adalet, dürüstlük, merhamet, yardımlaşma.</p>
+        <p><strong>3. Evrensel ahlak:</strong> Doğaya ve canlılara karşı sorumluluk — emanet anlayışıyla çevreye duyarlılık.</p>
+        <div class="kavram-kutu"><strong>📌 Anahtar Kavramlar</strong><span class="ktag">hulk</span><span class="ktag">karakter</span><span class="ktag">irade</span><span class="ktag">sorumluluk</span><span class="ktag">Kalem 4</span><span class="ktag">Nahl 90</span></div>
+      </div>
+    </div>
+
+    <!-- AHLAK KAYNAKLARI -->
+    <div class="konu-card" id="ahlak-kaynaklar">
+      <div class="konu-card-head" onclick="toggleKonu('ahlak-kaynaklar')">
+        <div class="num">8</div>
+        <div class="head-text"><h3>📜 İslam Ahlakının Kaynakları</h3><div class="sub">Kur'an · Sünnet · Akıl · Fıtrat</div></div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="konu-card-body">
+        <p>İslam ahlakı, insan aklının ve tecrübesinin ötesinde ilahi bir referans çerçevesine dayanır. Bu, ahlaki ilkelerin evrensel, kalıcı ve nesnel olmasını sağlar.</p>
+        <div class="ozellik-grid">
+          <div class="ozellik-item"><h5>📖 Kur'an-ı Kerim</h5><p>Temel kaynak. Kur'an; doğruluk, adalet, merhamet, sabır, şükür ve tevazu gibi ahlaki ilkeleri açık emirler ve kıssalarla aktarır. "Güzel ahlakı tamamlamak için gönderildim." hadisi bu temeli pekiştirir.</p></div>
+          <div class="ozellik-item"><h5>🌿 Sünnet-i Nebevî</h5><p>Kur'an'ın yaşanan hâli. Hz. Peygamber'in sözleri (kavli), fiilleri (fiili) ve onayları (takriri) İslam ahlakının somut uygulamasıdır. "Ben güzel ahlakı tamamlamak için gönderildim." (Ahmed b. Hanbel)</p></div>
+          <div class="ozellik-item"><h5>🧠 Akıl ve Vicdan</h5><p>İslam, aklı ve vicdanı ahlakın tamamlayıcı kaynakları olarak kabul eder. Vahyin aydınlığında çalışan akıl, iyiyi kötüden ayırt edebilir.</p></div>
+          <div class="ozellik-item"><h5>🌱 Fıtrat</h5><p>İnsanın yaratılıştan gelen saf doğası. Fıtrat, iyiliğe ve doğruluğa eğilimlidir. "Her doğan çocuk İslam fıtratı üzerine doğar." (Buhârî)</p></div>
+        </div>
+        <div class="hadis-box">"Ben ancak güzel ahlakı tamamlamak için gönderildim." <span class="ref">Hz. Peygamber (Ahmed b. Hanbel)</span></div>
+        <div class="kavram-kutu"><strong>📌 Anahtar Kavramlar</strong><span class="ktag">Kur'an</span><span class="ktag">sünnet</span><span class="ktag">akıl</span><span class="ktag">vicdan</span><span class="ktag">fıtrat</span><span class="ktag">vahiy</span></div>
+      </div>
+    </div>
+
+    <!-- DÖRT TEMEL ERDEM -->
+    <div class="konu-card" id="dort-erdem">
+      <div class="konu-card-head" onclick="toggleKonu('dort-erdem')">
+        <div class="num">9</div>
+        <div class="head-text"><h3>🏛️ Dört Temel Erdem</h3><div class="sub">Hikmet · Adalet · Şecaat · İffet</div></div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="konu-card-body">
+        <p>İslam ahlak anlayışı, Aristoteles'ten gelen ve İslam filozoflarının (Farabi, İbn Miskeveyh) İslami perspektifle yeniden yorumladığı <strong>dört temel erdem</strong> üzerine inşa edilmiştir. Her erdem, akıl ve irade güçlerinin belirli bir alanında ifade bulur.</p>
+
+        <!-- HİKMET -->
+        <div style="background:var(--gold-light);border:1.5px solid var(--gold);border-radius:10px;padding:16px 20px;margin:18px 0;">
+          <h4 style="color:#5a3a00;font-size:1em;margin-bottom:8px;">🏛️ 1. HİKMET — Akıl Gücünün Erdemi</h4>
+          <p style="color:#5a3a00;font-size:0.9em;line-height:1.7;margin-bottom:8px;"><strong>Tanım:</strong> Her şeyi yerli yerinde bilmek, gerçeği kavrayarak doğru kararlar almaktır. Akıl gücünün erdemli orta noktasıdır.</p>
+          <div class="tablo-wrap"><table style="font-size:0.85em;">
+            <tr><th>Alt Erdemler</th><th>Açıklama</th></tr>
+            <tr><td>Zekâ (fetanet)</td><td>Olayları hızlı kavrama yeteneği</td></tr>
+            <tr><td>Basiret</td><td>İşlerin iç yüzünü görme, öngörü</td></tr>
+            <tr><td>Tefekkür</td><td>Derin ve sistemli düşünme</td></tr>
+            <tr><td>Sağduyu</td><td>Pratik meselelerde doğru karar alma</td></tr>
+          </table></div>
+          <p style="color:#5a3a00;font-size:0.85em;margin-top:8px;"><strong>Aşırılıklar (her ikisi de kusur):</strong> Akıl gücünün eksikliği → <em>Cehalet / Ahmaklık</em> &nbsp;|&nbsp; Akıl gücünün aşırılığı → <em>Kurnazlık / Hilekârlık</em></p>
+        </div>
+
+        <!-- ADALET -->
+        <div style="background:#eaf4fb;border:1.5px solid #5b9bd5;border-radius:10px;padding:16px 20px;margin:18px 0;">
+          <h4 style="color:#1a3a5a;font-size:1em;margin-bottom:8px;">⚖️ 2. ADALET — Tüm Güçlerin Dengesi</h4>
+          <p style="color:#1a3a5a;font-size:0.9em;line-height:1.7;margin-bottom:8px;"><strong>Tanım:</strong> Her hak sahibine hakkını vermek; diğer üç erdemi bir arada tutup dengeleyen üstün erdemdir. "Her şeyi hakkıyla yapmak" anlamına gelir.</p>
+          <div class="tablo-wrap"><table style="font-size:0.85em;">
+            <tr><th>Alt Erdemler</th><th>Açıklama</th></tr>
+            <tr><td>Sıdk (doğruluk)</td><td>Söz, düşünce ve eylemde dürüstlük</td></tr>
+            <tr><td>Emanet</td><td>Güvenilirlik, teslim alınanı koruma</td></tr>
+            <tr><td>İnsaf</td><td>Kendi aleyhine de olsa hakkaniyetli davranmak</td></tr>
+            <tr><td>Vefa</td><td>Söz ve sözleşmelere bağlılık</td></tr>
+          </table></div>
+          <div class="ayet-box" style="margin:10px 0 4px;">"Allah, adaleti, iyilik yapmayı ve akrabaya yardım etmeyi emreder." <span class="ref">Nahl 90</span></div>
+          <p style="color:#1a3a5a;font-size:0.85em;margin-top:8px;"><strong>Zıttı:</strong> <em>Zulüm</em> — haksızlık etmek, hakkı gasp etmek</p>
+        </div>
+
+        <!-- ŞECAAT -->
+        <div style="background:#fef3ec;border:1.5px solid #e07b39;border-radius:10px;padding:16px 20px;margin:18px 0;">
+          <h4 style="color:#5a2800;font-size:1em;margin-bottom:8px;">🦁 3. ŞECAAT — Öfke/Güç Gücünün Erdemi</h4>
+          <p style="color:#5a2800;font-size:0.9em;line-height:1.7;margin-bottom:8px;"><strong>Tanım:</strong> Doğru amaçlar için, doğru zamanda ve doğru ölçüde cesaret ve kararlılık göstermektir. Öfke ve güç gücünün orta noktasıdır.</p>
+          <div class="tablo-wrap"><table style="font-size:0.85em;">
+            <tr><th>Alt Erdemler</th><th>Açıklama</th></tr>
+            <tr><td>Cesaret</td><td>Korkulacak şeyden gereği kadar korkmak</td></tr>
+            <tr><td>Sabır</td><td>Zorluğa dayanma ve metanet</td></tr>
+            <tr><td>Teenni</td><td>Aceleci olmama, düşünerek hareket etme</td></tr>
+            <tr><td>Cömertlik</td><td>Malını yerinde ve gerektiği kadar harcamak</td></tr>
+          </table></div>
+          <p style="color:#5a2800;font-size:0.85em;margin-top:8px;"><strong>Aşırılıklar:</strong> Eksiklik → <em>Korkaklık (cübün)</em> &nbsp;|&nbsp; Aşırılık → <em>Saldırganlık / Atılganlık (tehevvür)</em></p>
+        </div>
+
+        <!-- İFFET -->
+        <div style="background:#f3ebf9;border:1.5px solid #9b59b6;border-radius:10px;padding:16px 20px;margin:18px 0;">
+          <h4 style="color:#3a0a5a;font-size:1em;margin-bottom:8px;">🌸 4. İFFET — Arzu/Şehvet Gücünün Erdemi</h4>
+          <p style="color:#3a0a5a;font-size:0.9em;line-height:1.7;margin-bottom:8px;"><strong>Tanım:</strong> Nefsin istek ve arzularını aklın ve dinin gösterdiği sınırlar içinde tutmaktır. Arzu gücünün orta noktasıdır.</p>
+          <div class="tablo-wrap"><table style="font-size:0.85em;">
+            <tr><th>Alt Erdemler</th><th>Açıklama</th></tr>
+            <tr><td>Hayâ</td><td>Utanma duygusu; kötülükten kaçındıran iç denetim</td></tr>
+            <tr><td>Kanaat</td><td>Yeteriyle yetinmek, hırstan uzak durmak</td></tr>
+            <tr><td>Tevazu</td><td>Alçakgönüllülük, kibir ve gururdan kaçınmak</td></tr>
+            <tr><td>Sabır</td><td>Nefsin isteklerine karşı direniş</td></tr>
+          </table></div>
+          <div class="hadis-box" style="margin:10px 0 4px;">"Hayâ imandan bir şubedir." <span class="ref">Buhârî, İman</span></div>
+          <p style="color:#3a0a5a;font-size:0.85em;margin-top:8px;"><strong>Aşırılıklar:</strong> Eksiklik → <em>Hevâya uymak / Sefahat</em> &nbsp;|&nbsp; Aşırılık → <em>Nefsi tamamen bastırma / Ruhbanlık</em></p>
+        </div>
+
+        <!-- ÖZET TABLO -->
+        <div class="tablo-wrap" style="margin-top:20px;">
+          <table>
+            <tr><th>Erdem</th><th>Güç</th><th>Orta Nokta</th><th>Eksiklik</th><th>Aşırılık</th></tr>
+            <tr><td><strong>🏛️ Hikmet</strong></td><td>Akıl</td><td>Doğru bilgi ve karar</td><td>Cehalet</td><td>Kurnazlık</td></tr>
+            <tr><td><strong>🦁 Şecaat</strong></td><td>Öfke/Güç</td><td>Cesaret + Sabır</td><td>Korkaklık</td><td>Saldırganlık</td></tr>
+            <tr><td><strong>🌸 İffet</strong></td><td>Arzu/Şehvet</td><td>Hayâ + Kanaat</td><td>Sefahat</td><td>Ruhbanlık</td></tr>
+            <tr><td><strong>⚖️ Adalet</strong></td><td>Tümü</td><td>Hak ve denge</td><td colspan="2">Zulüm (tek zıt)</td></tr>
+          </table>
+        </div>
+        <div class="kavram-kutu"><strong>📌 Anahtar Kavramlar</strong><span class="ktag">hikmet</span><span class="ktag">adalet</span><span class="ktag">şecaat</span><span class="ktag">iffet</span><span class="ktag">orta yol</span><span class="ktag">dört erdem</span><span class="ktag">İbn Miskeveyh</span></div>
+      </div>
+    </div>
+
+    <!-- GÜZEL AHLAK -->
+    <div class="konu-card" id="guzel-ahlak">
+      <div class="konu-card-head" onclick="toggleKonu('guzel-ahlak')">
+        <div class="num">10</div>
+        <div class="head-text"><h3>✨ Güzel Ahlak (Hüsnü Hulk)</h3><div class="sub">Bireysel · Toplumsal · Evrensel ahlak</div></div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="konu-card-body">
+        <p>Güzel ahlak (hüsnü hulk); insanın hem Allah'a hem insanlara hem de diğer canlılara karşı davranışlarında erdemi, merhameti ve doğruluğu esas almasıdır.</p>
+        <div class="hadis-box">"Mü'minlerin iman bakımından en mükemmeli, ahlakı en güzel olanıdır." <span class="ref">Tirmizî, Radâ</span></div>
+        <div class="hadis-box">"Ben ancak güzel ahlakı tamamlamak için gönderildim." <span class="ref">Muvatta, Hüsnü'l-Hulk</span></div>
+        <div class="ozellik-grid">
+          <div class="ozellik-item"><h5>🤝 Dürüstlük (Sıdk)</h5><p>Söz, düşünce ve eylemde tutarlı doğruluk. Yalan, riya ve nifaktan uzak durmak.</p></div>
+          <div class="ozellik-item"><h5>💝 Merhamet (Rahmet)</h5><p>Tüm canlılara şefkat ve acıma. "Yeryüzündekilere merhamet ediniz ki göktekiler de size merhamet etsin." (Tirmizî)</p></div>
+          <div class="ozellik-item"><h5>😊 Hayâ</h5><p>İçten gelen utanma duygusu. "Hayâ imandan bir şubedir." (Buhârî) Her kötülükten alıkoyan iç denetim mekanizması.</p></div>
+          <div class="ozellik-item"><h5>🙏 Tevazu</h5><p>Kibir ve gururdan uzak, alçakgönüllü olmak. Hz. Peygamber, sahabesiyle aynı sofrada oturmuş, ev işlerine yardım etmiştir.</p></div>
+          <div class="ozellik-item"><h5>🤲 Sabır</h5><p>Bela, musibet ve zorluklar karşısında metanet. "Allah sabredenlerle beraberdir." (Bakara 153)</p></div>
+          <div class="ozellik-item"><h5>🌟 Şükür</h5><p>Nimetlerin farkında olmak ve Allah'a karşı minnettar bir tutum sergilemek. Şükür nimeti artırır (İbrahim 7).</p></div>
+        </div>
+        <p><strong>Ahlak Bozuklukları (Reziletler):</strong></p>
+        <p>Kibir, haset, yalan, riya, cimrilik, gıybet, iftira, nankörlük — bunların tamamı kalpten kaynaklanan ve dışa yansıyan ahlaki hastalıklardır. İslam, bu hastalıkların tedavisini de sunar: tövbe, zikir, ibadet ve nefis muhasebesi.</p>
+        <div class="ayet-box">"Şüphesiz nefsini kötülüklerden arındıran kurtuluşa ermiş; onu kötülüklere gömen de ziyan etmiştir." <span class="ref">Şems Suresi, 9-10</span></div>
+        <div class="kavram-kutu"><strong>📌 Anahtar Kavramlar</strong><span class="ktag">hüsnü hulk</span><span class="ktag">sıdk</span><span class="ktag">hayâ</span><span class="ktag">tevazu</span><span class="ktag">sabır</span><span class="ktag">şükür</span><span class="ktag">kibir</span><span class="ktag">nefis muhasebesi</span></div>
+      </div>
+    </div>
+
+  </div><!-- /page-konu -->
+
+  <!-- QUIZ SAYFASI -->
+  <div class="page" id="page-quiz">
+    <div class="quiz-hero">
+      <div>
+        <h2>✏️ 50 Soruluk Zorlayıcı Quiz</h2>
+        <p>Peygamberlik Görevleri · Peygamber Sıfatları · İslam Ahlak İlkeleri · Dört Temel Erdem</p>
+      </div>
+      <div class="quiz-stats">
+        <div class="stat-box"><div class="num">50</div><div class="lbl">Toplam Soru</div></div>
+        <div class="stat-box"><div class="num" id="stat-dogru">0</div><div class="lbl">Doğru</div></div>
+        <div class="stat-box"><div class="num" id="stat-yanlis">0</div><div class="lbl">Yanlış</div></div>
+      </div>
+    </div>
+    <div class="quiz-progress-bar">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <div class="progress-text" id="progress-text">0 / 50 cevaplandı</div>
+    </div>
+    <div class="sonuc-panel" id="sonuc-panel">
+      <div class="sonuc-puan" id="sonuc-puan">0%</div>
+      <div class="sonuc-yorum" id="sonuc-yorum"></div>
+      <div class="sonuc-detay">
+        <div class="d-item dogru"><div class="d-num" id="s-dogru">0</div><div class="d-lbl">✅ Doğru</div></div>
+        <div class="d-item yanlis"><div class="d-num" id="s-yanlis">0</div><div class="d-lbl">❌ Yanlış</div></div>
+        <div class="d-item bos"><div class="d-num" id="s-bos">0</div><div class="d-lbl">⬜ Boş</div></div>
+      </div>
+    </div>
+
+    <div style="background:white;border-radius:12px;box-shadow:0 2px 12px rgba(107,15,26,0.07);overflow:hidden;margin-bottom:16px;">
+      <div id="sorular-all" style="padding:6px 0;"></div>
+    </div>
+
+    <div class="quiz-actions">
+      <button class="btn-kontrol" onclick="quizKontrol()">✅ Cevapları Kontrol Et</button>
+      <button class="btn-sifirla" onclick="quizSifirla()">🔄 Sıfırla</button>
+    </div>
+  </div><!-- /page-quiz -->
+
+</div><!-- /main -->
+</div><!-- /layout -->
+
+<script>
+// ===== SAYFA =====
+function showPage(p) {
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.sidebar-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('page-' + p).classList.add('active');
+  document.getElementById('btn-' + p).classList.add('active');
+  window.scrollTo(0,0);
+}
+function goTo(id) {
+  setTimeout(() => { const el = document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); }, 100);
+}
+
+// ===== ACCORDION =====
+function toggleKonu(id) { document.getElementById(id).classList.toggle('collapsed'); }
+
+// ===== SORU VERİLERİ — AYET/HADİS TEMELLİ 50 SORU =====
+const sorular = [
+  { no:1,
+    soru:'"Ey Peygamber! Rabbinden sana indirileni tebliğ et. Eğer bunu yapmazsan O\'nun elçiliğini yerine getirmemiş olursun." (Maide 67) Bu ayette emredilen peygamberlik görevi hangisidir?',
+    s:['Teşri','Tebyin','Tebliğ','Temsil','İsmet'], d:2,
+    a:'Maide 67. ayet, vahyi eksiksiz iletme görevi olan tebliği doğrudan emreden en temel ayettir.' },
+  { no:2,
+    soru:'"O, kendi heva ve hevesinden konuşmaz; söyledikleri vahyedilen bir vahiyden başkası değildir." (Necm 3-4) Bu ayet Hz. Peygamber\'in hangi görevine dayanak oluşturur?',
+    s:['Tebliğ','Tebyin','Temsil','Teşri','Nübüvvet'], d:3,
+    a:'Necm 3-4 ayetleri, Hz. Peygamber\'in vahiy kaynaklı bağlayıcı hükümler koyma yetkisini (teşri) tescil eder.' },
+  { no:3,
+    soru:'"Sana da bu Kur\'an\'ı indirdik ki insanlara ne indirildiğini açıklayasın." (Nahl 44) Bu ayet doğrudan hangi görevi emretmektedir?',
+    s:['Tebliğ','Teşri','Temsil','Tebyin','Risalet'], d:3,
+    a:'Nahl 44, Kur\'an\'ı anlaşılır kılma görevi olan tebyin\'in Kur\'an\'daki en açık dayanağıdır.' },
+  { no:4,
+    soru:'"Andolsun ki Allah\'ın Resulünde sizin için güzel bir örnek (usve-i hasene) vardır." (Ahzab 21) Bu ayette geçen \'usve-i hasene\' kavramı peygamberlik görevlerinden hangisine karşılık gelir?',
+    s:['Tebliğ','Teşri','Tebyin','Temsil','İsmet'], d:3,
+    a:'Usve-i hasene (güzel örnek) kavramı, Hz. Peygamber\'in İslam\'ı bizzat yaşayarak örnek olma görevi olan temsile karşılık gelir.' },
+  { no:5,
+    soru:'"Peygamber size ne verdiyse onu alın; size ne yasakladıysa ondan kaçının." (Haşr 7) Bu ayet hangi görevin bağlayıcı niteliğini ortaya koymaktadır?',
+    s:['Tebyin','Tebliğ','Temsil','Teşri','Fıtrat'], d:3,
+    a:'Haşr 7. ayet, Hz. Peygamber\'in dini ve toplumsal alanlarda bağlayıcı hükümler koyma yetkisi olan teşri\'nin Kur\'an\'daki en güçlü dayanağıdır.' },
+  { no:6,
+    soru:'Hz. Aişe\'ye "Hz. Peygamber\'in ahlakı nasıldı?" diye sorulduğunda "O\'nun ahlakı Kur\'an\'dı." cevabını vermiştir. Bu ifade peygamberlik görevlerinden hangisini en özlü biçimde tanımlar?',
+    s:['Tebliğ','Teşri','Tebyin','Temsil','Fetanet'], d:3,
+    a:'Hz. Aişe\'nin cevabı, Hz. Peygamber\'in İslam ahlakını bizzat yaşayarak somutlaştırma görevi olan temsil\'i en güçlü şekilde ifade eder.' },
+  { no:7,
+    soru:'"Beni nasıl namaz kılarken görüyorsanız öyle kılın." hadisi, aynı anda hem fiili tebyin hem de hangi görevi örnekler?',
+    s:['Tebliğ','Teşri','Temsil','Nübüvvet','İsmet'], d:2,
+    a:'Bu hadis; namazı bizzat yaparak açıklama yönüyle fiili tebyin, İslam\'ı yaşayarak gösterme yönüyle temsil görevini birlikte örnekler.' },
+  { no:8,
+    soru:'Hz. Peygamber\'in Enam 82\'deki "zulüm" kelimesini Lokman 13\'teki "şirk" kelimesiyle açıklaması hangi tebyin türüdür?',
+    s:['Fiili tebyin','Takriri tebyin','Yazılı tebyin','Kavli tebyin','Teşri'], d:3,
+    a:'Sözle yapılan bu ayet açıklaması, Hz. Peygamber\'in Kur\'an\'ı kelimeler üzerinden yorumladığı kavli tebyin\'in klasik örneğidir.' },
+  { no:9,
+    soru:'"Peygambere düşen, sadece açıkça tebliğ etmektir." (Nûr 54) Bu ayete göre tebliğ ile hidayet arasındaki ilişki nedir?',
+    s:['Tebliğ etmek hidayeti garantiler','Tebliğ mesajı iletmektir; hidayet Allah\'a aittir','Hidayet tebliğin bir parçasıdır','Tebliğ olmadan hidayet mümkündür','İkisi tamamen aynı şeydir'], d:1,
+    a:'Nûr 54, Hz. Peygamber\'in görevinin yalnızca iletmek olduğunu, hidayetin ise Allah\'ın takdirine bırakıldığını açıkça bildirir.' },
+  { no:10,
+    soru:'Hz. Peygamber\'in Bizans ve Sasani hükümdarlarına mektuplar göndermesi tebliğin hangi özelliğinin kanıtıdır?',
+    s:['Eksiksizlik','Süreklilik','Baskısızlık','Evrensellik','Yazılılık'], d:3,
+    a:'Bu mektuplar, tebliğin belirli bir kavme veya coğrafyaya özgü olmadığını, siyasi ve etnik sınır tanımadığını kanıtlar.' },
+  { no:11,
+    soru:'Hz. Peygamber\'in öz amcası Ebu Leheb hakkında inen Tebbet suresini tebliğden kaçınmaması hangi ilkeyi gösterir?',
+    s:['Evrensellik','Süreklilik','Eksiksizlik','Baskısızlık','Yazılılık'], d:2,
+    a:'Yakın akrabası aleyhine de olsa vahyi iletmek, tebliğin "eksiksizlik" ilkesinin en çarpıcı örneğidir.' },
+  { no:12,
+    soru:'Medine Vesikası hem yazılı tebyin hem de hangi görevin örneğidir?',
+    s:['Tebliğ','Teşri','Temsil','Nübüvvet','Fetanet'], d:2,
+    a:'Medine Vesikası; yazılı tebyin yönüyle belge, hakkaniyetli devlet yönetimini bizzat uygulaması yönüyle temsil görevinin somut belgesidir.' },
+  { no:13,
+    soru:'"Allah ve Resulü bir işe hükmettiği zaman, mümin erkek ve kadına seçim hakkı yoktur." (Ahzab 36) Bu ayet Hz. Peygamber\'in hangi görevini pekiştirir?',
+    s:['Tebliğ','Tebyin','Temsil','Teşri','Nübüvvet'], d:3,
+    a:'Ahzab 36, Hz. Peygamber\'in koyduğu hükümlerin Müslümanlar için bağlayıcı olduğunu bildirerek teşri yetkisini kesin biçimde tescil eder.' },
+  { no:14,
+    soru:'"Emin" lakabıyla anılan Hz. Peygamber, bu lakabı hangi zorunlu sıfatı sayesinde kazanmıştır?',
+    s:['Sıdk','Emanet','Tebliğ','İsmet','Fetanet'], d:1,
+    a:'"Emin" (güvenilir) lakabı, peygamberlerin zorunlu sıfatlarından emanet\'in — güvenilirliğin — somut karşılığıdır.' },
+  { no:15,
+    soru:'"Vahyi gizlemek" anlamına gelen ve tebliğ sıfatının doğrudan zıddı olan kavram nedir?',
+    s:['Kizb','Hıyanet','Kitman','Belâdet','Cehalet'], d:2,
+    a:'Kitman; vahyi gizlemek anlamına gelir ve tebliğ (iletme) sıfatının doğrudan zıddıdır.' },
+  { no:16,
+    soru:'Peygamberlerin büyük günahlardan korunduğunu ifade eden sıfat ile bu sıfatın peygamberlikte zorunlu olmasının temel nedeni nedir?',
+    s:['Sıdk — dürüstlük için','Emanet — güvenilirlik için','İsmet — vahyin saf ve değiştirilmemiş iletilmesi için','Fetanet — zekâ için','Tebliğ — iletme için'], d:2,
+    a:'İsmet; Allah\'ın özel korumasıyla büyük günahtan arınmış olmaktır. Vahyin saf, güvenilir ve değiştirilmemiş biçimde ulaşmasını güvence altına alır.' },
+  { no:17,
+    soru:'"Söz, düşünce ve eylemde bütünleşik dürüstlük" olarak tanımlanan zorunlu sıfat ile zıttı olan kavramı doğru eşleştiren seçenek hangisidir?',
+    s:['Sıdk — Kizb','Emanet — Hıyanet','İsmet — Günah işlemek','Fetanet — Belâdet','Tebliğ — Kitman'], d:0,
+    a:'Sıdk (bütünleşik dürüstlük) sıfatının zıddı kizb (yalan) dir.' },
+  { no:18,
+    soru:'"Biz seni ancak âlemlere rahmet olarak gönderdik." (Enbiya 107) Bu ayet Hz. Peygamber\'in risaletinin hangi özelliğini açıkça vurgular?',
+    s:['Kalıcılık','Evrensellik','Son peygamberlik','Mucize sahibi olmak','Eksiksizlik'], d:1,
+    a:'"Âlemler" ifadesi; insan, cin ve tüm varlıkları kapsayan evrenselliği ifade eder. Bu ayet risaletin hiçbir kavme özgü olmadığını bildirir.' },
+  { no:19,
+    soru:'Nübüvvet ile risalet arasındaki farkı en doğru biçimde açıklayan ifade hangisidir?',
+    s:['Her nebi aynı zamanda resuldür','Her resul nebidir; ancak her nebi resul değildir','Risalet nübüvvetten üstündür','İkisi tamamen eşanlamlıdır','Nübüvvet daha kapsamlıdır'], d:1,
+    a:'Nübüvvet vahiy almayı, risalet ise bu vahyi insanlara iletmekle görevlendirilmeyi ifade eder. Her resul nebidir ama her nebi resul değildir.' },
+  { no:20,
+    soru:'"Sirac-ı münir" sıfatının tam karşılığı hangisidir?',
+    s:['Son uyarıcı','Güzel örnek','Aydınlatıcı kandil','Güvenilir tanık','Peygamberlerin sonuncusu'], d:2,
+    a:'Sirac-ı münir; "aydınlatan kandil" anlamına gelir. Hz. Peygamber insanlara hakikati gösteren ışık kaynağı olarak bu sıfatla anılır.' },
+  { no:21,
+    soru:'Ahzab 45-46\'da Hz. Peygamber\'in görevleri arasında sayılan "nezir" unvanı ne anlama gelir?',
+    s:['Müjdeci','Uyarıcı ve korkutucu','Aydınlatıcı','Tanık','Örnek'], d:1,
+    a:'Nezir; azap ve kötü sonuçlar konusunda insanları sakındıran uyarıcı demektir. Müjdeci anlamındaki "beşir" ile birlikte anılır.' },
+  { no:22,
+    soru:'"Şüphesiz sen yüce bir ahlak üzerindesin." (Kalem 4) Bu ayet ahlak anlayışında hangi boyutu vurgular?',
+    s:['Ahlakın bireysel niteliğini','Toplumsal ahlakın önemini','Ahlakın ilahi kaynağa ve peygamber örneğine dayandığını','Ahlakın eğitimle kazanılamayacağını','Ahlak ile ibadetin özdeşliğini'], d:2,
+    a:'Kalem 4, ahlakın hem Allah\'ın tanıklığıyla tescil edildiğini hem de Hz. Peygamber\'in şahsında somutlaştığını ortaya koyar.' },
+  { no:23,
+    soru:'"Ben ancak güzel ahlakı tamamlamak için gönderildim." (Muvatta) hadisi İslam ahlak anlayışında hangi kaynağa yapılan en güçlü vurguyu temsil eder?',
+    s:['Fıtrat','Akıl ve vicdan','Kur\'an-ı Kerim','Sünnet-i Nebevî','Sahabe görüşleri'], d:3,
+    a:'Bu hadis, sünnetin İslam ahlakının somut yaşama rehberi olduğunun en açık ifadesidir. Hz. Peygamber\'in tüm hayatı bu sünnetin fiili kaynağıdır.' },
+  { no:24,
+    soru:'"Her doğan çocuk İslam fıtratı üzerine doğar." (Buhârî) hadisi İslam ahlak anlayışındaki hangi ilkeyi destekler?',
+    s:['Ahlakın yalnızca dışsal kurallardan oluştuğunu','İnsanın doğuştan iyiye ve doğruya eğilimli olduğunu','Ahlakın yalnızca büyüklere özgü olduğunu','Fıtratın sonradan değiştirilemeyeceğini','Akıl olmadan ahlak kurulamayacağını'], d:1,
+    a:'Fıtrat hadisi; insanın yaratılıştan temiz ve iyiye yatkın olduğunu, dolayısıyla ahlakın bu doğal zeminden beslendiğini ortaya koyar.' },
+  { no:25,
+    soru:'"Ahlak" kelimesinin Arapça kökü ve temel anlamı nedir?',
+    s:['Hükm — hüküm vermek','Hulk — huy, karakter, tabiat','Hayr — iyilik','Hilm — yumuşak huyluluk','Hakk — doğruluk'], d:1,
+    a:'"Ahlak", "hulk" (huy, karakter, tabiat) kelimesinin çoğuludur; insanın içselleştirdiği ve alışkanlık hâline getirdiği karakter özelliklerini ifade eder.' },
+  { no:26,
+    soru:'"Şüphesiz ki Allah, adaleti, iyilik yapmayı ve akrabaya yardım etmeyi emreder; hayâsızlığı, kötülüğü ve azgınlığı yasaklar." (Nahl 90) Bu ayette "her hak sahibine hakkını verme" olarak tanımlanan erdem hangisidir?',
+    s:['Hikmet','Şecaat','İffet','Adalet','Sıdk'], d:3,
+    a:'Adalet; her hak sahibine hakkını vermek, denge ve eşitliği gözetmektir. Nahl 90 adaleti İslam ahlakının merkezi emri olarak öne çıkarır.' },
+  { no:27,
+    soru:'Dört temel erdemden hangisi akıl gücünün erdemli orta noktasını temsil eder ve "her şeyi yerli yerinde bilip doğru karar alma" şeklinde tanımlanır?',
+    s:['Adalet','Şecaat','İffet','Hikmet','Sabır'], d:3,
+    a:'Hikmet; akıl gücünün ne aşırı kurnazlığa ne de cehalete düştüğü, gerçeği kavrayıp doğru karar aldığı erdemli orta noktasıdır.' },
+  { no:28,
+    soru:'"Hayâ imandan bir şubedir." (Buhârî, İman) hadisinde geçen "hayâ" kavramı dört temel erdemden hangisinin alt erdemi sayılır?',
+    s:['Hikmet','Adalet','Şecaat','İffet','Sıdk'], d:3,
+    a:'Hayâ (utanma ve iç denetim duygusu), arzu-şehvet gücünü aklın ve dinin gösterdiği sınır içinde tutan iffet erdeminin temel alt erdemlerindendir.' },
+  { no:29,
+    soru:'Öfke ve güç gücünün erdemli orta noktası; "doğru amaçlar için, doğru zamanda, doğru ölçüde cesaret göstermek" biçiminde tanımlanan erdem hangisidir?',
+    s:['İffet','Adalet','Şecaat','Hikmet','Sabır'], d:2,
+    a:'Şecaat; cesaret ile korkaklık arasındaki altın orta yoldur. Öfke gücünün ne körce saldırganlığa ne de boyun eğen korkaklığa düşmediği erdemli noktasıdır.' },
+  { no:30,
+    soru:'Şecaat erdeminin "eksiklik" ucu ile "aşırılık" ucunu doğru veren seçenek hangisidir?',
+    s:['Eksiklik: kibir — Aşırılık: tevazu','Eksiklik: korkaklık (cübün) — Aşırılık: saldırganlık (tehevvür)','Eksiklik: cehalet — Aşırılık: kurnazlık','Eksiklik: sefahat — Aşırılık: ruhbanlık','Eksiklik: hıyanet — Aşırılık: aşırı güven'], d:1,
+    a:'Şecaatin iki aşırılık ucu: eksiklik → korkaklık (cübün), aşırılık → saldırganlık ve atılganlık (tehevvür).' },
+  { no:31,
+    soru:'İffet erdeminin "aşırılık" ucu olarak gösterilen davranış biçimi hangisidir?',
+    s:['Korkaklık','Kibir','Ruhbanlık — nefsi tamamen bastırma','Kurnazlık','Sefahat — hevâya uymak'], d:2,
+    a:'İffet\'in eksiklik ucu hevâya uymak (sefahat), aşırılık ucu ise tüm arzu ve ihtiyaçları bastıran ruhbanlık anlayışıdır.' },
+  { no:32,
+    soru:'İbn Miskeveyh\'in anlayışında adalet\'i diğer üç erdemden ayıran en temel özellik nedir?',
+    s:['Bireysel bir erdemdir','Diğer üç erdemi dengeleyen ve hepsini kapsayan üstün erdemdir','Yalnızca devlet yönetimiyle ilgilidir','Zıttı yoktur','En kolay kazanılan erdemdir'], d:1,
+    a:'Adalet; hikmet, şecaat ve iffet erdemlerinin hepsini bir arada dengeleyerek bütünleştiren ve "her şeyin hakkını verme" anlamında diğerlerinin üzerinde duran üstün erdemdir.' },
+  { no:33,
+    soru:'"Kanaat", "tevazu" ve "hayâ" hangi temel erdemin alt erdemleridir?',
+    s:['Hikmet','Adalet','Şecaat','İffet','Sıdk'], d:3,
+    a:'Kanaat (yetiniş), tevazu (alçakgönüllülük) ve hayâ (utanma duygusu); arzu gücünü dengeleyen iffet erdeminin temel alt erdemleridir.' },
+  { no:34,
+    soru:'Hikmet erdeminin "aşırılık" ucunu oluşturan davranış biçimi nedir?',
+    s:['Cehalet','Kurnazlık ve hilekârlık','Korkaklık','Kibir','Sefahat'], d:1,
+    a:'Hikmetin iki ucu: eksiklik → cehalet (bilgisizlik), aşırılık → aklı kötü amaçlar için kullanan kurnazlık ve hilekârlıktır.' },
+  { no:35,
+    soru:'"Sabır" erdemi hem şecaat hem de iffet kapsamında değerlendirilebilir. Hangi bağlamda iffet, hangi bağlamda şecaat sayılır?',
+    s:['Nefsin arzularına karşı direniş → iffet; zorluğa ve musibete dayanma → şecaat','İkisi de yalnızca iffet kapsamındadır','İkisi de yalnızca şecaat kapsamındadır','Sabır ayrı bir erdemdir, dördüyle ilgisi yoktur','Sabır yalnızca ibadet alanında geçerlidir'], d:0,
+    a:'Sabır çift boyutludur: nefsin arzularına karşı direnç → iffet; acı, musibet ve zorluklara katlanma → şecaat kapsamında değerlendirilir.' },
+  { no:36,
+    soru:'"Mü\'minlerin iman bakımından en mükemmeli, ahlakı en güzel olanıdır." (Tirmizî, Radâ) Bu hadis İslam\'da hangi ilişkiyi ortaya koyar?',
+    s:['Namaz ile güzel ahlak arasındaki ilişkiyi','İman ile güzel ahlak arasındaki doğrudan bağı','Cihad ile ahlak arasındaki ilişkiyi','İlim ile ahlak arasındaki ilişkiyi','Tövbe ile ahlak arasındaki ilişkiyi'], d:1,
+    a:'Bu hadis, güzel ahlakın imanın yansıması ve olgunluk göstergesi olduğunu; imanın kalitesini ahlaki davranışın belirlediğini ortaya koyar.' },
+  { no:37,
+    soru:'"Nefsini kötülüklerden arındıran kurtuluşa ermiştir; onu kötülüklere gömen de ziyan etmiştir." (Şems 9-10) Bu ayette vurgulanan ahlaki kavram nedir?',
+    s:['Tevekkül','Sabır','Şükür','Tezkiye-i nefs (nefis arındırma)','Tövbe'], d:3,
+    a:'Tezkiye-i nefs; kalbi kötü ahlaktan temizleyip güzel ahlakla donatma sürecidir. Kurtuluşun bu arındırmaya bağlı olduğunu bildirir.' },
+  { no:38,
+    soru:'"Yeryüzündekilere merhamet ediniz ki göktekiler de size merhamet etsin." (Tirmizî) hadisinde öne çıkan güzel ahlak özelliği hangisidir?',
+    s:['Sıdk','Tevazu','Sabır','Merhamet (rahmet)','Hayâ'], d:3,
+    a:'Merhamet; yalnızca insanlara değil tüm canlılara şefkatle yaklaşmayı ifade eden ve imanın özünde yer alan temel ahlak erdemlerinden biridir.' },
+  { no:39,
+    soru:'Kibir ve gururun karşısında yer alan; Hz. Peygamber\'in sahabesiyle aynı sofrada oturup ev işlerine yardım etmesiyle somutlaştırdığı erdem hangisidir?',
+    s:['Sabır','Şükür','Tevazu','Sıdk','Hayâ'], d:2,
+    a:'Tevazu (alçakgönüllülük); kibrin ve gururun karşısında yer alır. Hz. Peygamber\'in gündelik hayatı tevazunun en canlı örneğidir.' },
+  { no:40,
+    soru:'"Allah sabredenlerle beraberdir." (Bakara 153) ayeti hangi güzel ahlak özelliğinin değerini en güçlü biçimde ortaya koyar?',
+    s:['Şükür','Tevazu','Merhamet','Sabır','Sıdk'], d:3,
+    a:'Sabır; musibetlere, zorluklara ve nefsin arzularına karşı gösterilen metanettir. Allah\'ın sabredenlerle beraber olması bu erdemi en yüksek değere çıkarır.' },
+  { no:41,
+    soru:'"Eğer şükrederseniz nimetimi artırırım; nankörlük ederseniz azabım çok şiddetlidir." (İbrahim 7) ayetinde öne çıkan güzel ahlak kavramı hangisidir?',
+    s:['Sabır','Tevazu','Şükür','Merhamet','Sıdk'], d:2,
+    a:'Şükür; Allah\'ın nimetlerinin farkında olmak ve minnet duygusuyla hareket etmektir. İbrahim 7, şükrün maddi ve manevi artışı beraberinde getirdiğini bildirir.' },
+  { no:42,
+    soru:'Gıybet, iftira ve yalan İslam ahlak anlayışında nasıl sınıflandırılır?',
+    s:['Küçük günahlar olup kolayca bağışlanır','Kalp hastalıkları; bireysel ve toplumsal bozulmaya yol açan ahlaki reziletler','Yalnızca sosyal hayatı etkiler','Niyete göre değerlendirilmeli','İbadet eksiklikleridir, ahlakla ilgisi yoktur'], d:1,
+    a:'Gıybet, iftira ve yalan; kalpten kaynaklanan, önce bireyin sonra toplumun bozulmasına yol açan ahlaki hastalıklardır. İslam bunları imanla bağdaşmaz sayar.' },
+  { no:43,
+    soru:'"Riya" kavramı İslam ahlakında ne anlama gelir?',
+    s:['Tembellik; bireysel ahlak sorunu','Yalnızca ibadetlerde görülen küçük bir hata','İbadet ve iyilikleri Allah için değil gösteriş için yapmak; kalp hastalığı','Kibrin alt türü; toplumsal ahlak sorunu','Haset ile aynı anlama gelir'], d:2,
+    a:'Riya; ibadet ve iyilikleri Allah\'ın rızası yerine başkalarına göstermek amacıyla yapmaktır. İhlası (saflığı) öldüren bir kalp hastalığıdır.' },
+  { no:44,
+    soru:'Aşağıdaki ayet–görev/sıfat eşleştirmelerinden hangisi yanlıştır?',
+    s:['Maide 67 — Tebliğ','Necm 3-4 — Teşri','Nahl 44 — Tebyin','Ahzab 21 — Temsil','Ahzab 40 — İsmet sıfatı'], d:4,
+    a:'Ahzab 40, "peygamberlerin sonuncusu (Hâtemü\'n-Nebiyyîn)" ifadesiyle son peygamberliği bildirir; ismet sıfatını değil, risaletin evrenselliğini ve sonluluğunu vurgular.' },
+  { no:45,
+    soru:'"Dinde zorlama yoktur." (Bakara 256) ile "Rabbinin yoluna hikmetle ve güzel öğütle davet et." (Nahl 125) birlikte değerlendirildiğinde tebliğin hangi ilkesi ortaya çıkar?',
+    s:['Evrensellik','Eksiksizlik','Baskısızlık ve davet niteliği','Süreklilik','Yazılılık'], d:2,
+    a:'Bu iki ayet, tebliğin hiçbir zaman zorla kabul ettirme değil; özgür iradeye saygılı, güzel üsluplu bir davet olduğunu birlikte ortaya koyar.' },
+  { no:46,
+    soru:'Aşağıdakilerden hangisi peygamber sıfatları arasında değil, İslam ahlakındaki dört temel erdem arasında yer alır?',
+    s:['Sıdk','Emanet','İsmet','Şecaat','Fetanet'], d:3,
+    a:'Sıdk, emanet, ismet, tebliğ ve fetanet peygamberlerin zorunlu sıfatlarıdır. Şecaat ise dört temel erdemden biridir; peygamberlere özgü zorunlu bir sıfat değildir.' },
+  { no:47,
+    soru:'"Şüphesiz ki Allah adalet ve ihsanı emreder." (Nahl 90) Bu ayetteki "ihsan" kavramı güzel ahlak ve dört temel erdem bağlamında aşağıdakilerden hangisiyle en yakından ilişkilidir?',
+    s:['Şecaat','İffet','Hikmet','Adaletin en yüksek derecesi ve güzel ahlakın özü','Tebyin'], d:3,
+    a:'İhsan; "Allah\'ı görüyormuşçasına hareket etmek" şeklinde tanımlanır. Adaletin öte geçen bu üstün boyut, güzel ahlakın en ileri halkasıdır.' },
+  { no:48,
+    soru:'İslam ahlakında insanın üç temel sorumluluk boyutu (bireysel, toplumsal, evrensel) arasında doğaya ve diğer canlılara karşı sorumluluk hangi boyuta girer?',
+    s:['Bireysel ahlak','Toplumsal ahlak','Evrensel ahlak','Aile ahlakı','İbadet ahlakı'], d:2,
+    a:'Doğaya, hayvanlara ve çevreye karşı sorumluluk; evrensel ahlak kapsamında ele alınır. Bu sorumluluk "emanet" anlayışıyla doğrudan bağlantılıdır.' },
+  { no:49,
+    soru:'"Veda Hutbesi\'nde Hz. Peygamber\'in sahabe ile kurduğu diyalog: \'Tebliğ ettim mi?\' — \'Evet!\' — \'Allah\'ım sen de şahit ol!\'" Bu diyaloğun teolojik önemi nedir?',
+    s:['Sahabenin bilgisini sınadığı bir imtihandır','Yeni hüküm ve kanunların ilan edildiği andır','Tebliğ görevinin eksiksiz tamamlandığının resmi tescilidir','Sahabe arasından halife seçiminin gerçekleştiği andır','Risaletin sona erdiğinin ve sünnetin geçersiz olduğunun ilanıdır'], d:2,
+    a:'Veda Hutbesi\'ndeki bu diyalog; 23 yıl süren tebliğ görevinin peygamberin ağzından, sahabe tanıklığında ve Allah\'ın huzurunda resmen tamamlandığını tescil eden tarihi andır.' },
+  { no:50,
+    soru:'Tebliğ, teşri, tebyin ve temsil görevlerinden hangisi olmasa İslam soyut bir idealler bütünü olarak kalır ve yaşanabilirliğini hiçbir zaman kanıtlayamazdı?',
+    s:['Tebliğ','Teşri','Tebyin','Temsil','Hepsi eşit derecede zorunludur'], d:3,
+    a:'Temsil; soyut ilkelerin somut bir insan hayatında nasıl uygulandığını göstererek İslam\'ın yaşanabilirliğini kanıtlar. Diğerleri olmadan mesaj, kural ve açıklama eksik kalır; temsil olmadan ise ideal karşılıksız ve hayattan kopuk kalırdı.' },
+];
+
+// ===== RENDER =====
+const HARFLER = ['A','B','C','D','E'];
+const cevaplar = {};
+
+function renderSorular() {
+  const container = document.getElementById('sorular-all');
+  container.innerHTML = sorular.map(s => `
+    <div class="soru" id="soru-${s.no}">
+      <div class="soru-text"><span class="no">${s.no}</span>${s.soru}</div>
+      <div class="secenekler">
+        ${s.s.map((sec, j) => `
+          <div class="secenek${j===4?' secenek-e':''}" id="opt-${s.no}-${j}" onclick="secSec(${s.no},${j},${s.d})">
+            <span class="harf">${HARFLER[j]}</span>${sec}
+          </div>`).join('')}
+      </div>
+      <div class="aciklama" id="aciklama-${s.no}">💡 ${s.a}</div>
+    </div>`).join('');
+}
+
+function secSec(soruNo, secNo, dogru) {
+  const ilk = document.getElementById('opt-' + soruNo + '-0');
+  if(ilk && (ilk.classList.contains('correct') || ilk.classList.contains('wrong'))) return;
+  for(let i = 0; i < 5; i++) { const el = document.getElementById('opt-'+soruNo+'-'+i); if(el) el.classList.remove('selected'); }
+  cevaplar[soruNo] = secNo;
+  // Anında doğru/yanlış göster
+  if(secNo === dogru) {
+    document.getElementById('opt-'+soruNo+'-'+secNo).classList.add('correct');
+  } else {
+    document.getElementById('opt-'+soruNo+'-'+secNo).classList.add('wrong');
+    document.getElementById('opt-'+soruNo+'-'+dogru).classList.add('correct');
+  }
+  document.getElementById('aciklama-'+soruNo).classList.add('show');
+  for(let i=0;i<5;i++){ const el=document.getElementById('opt-'+soruNo+'-'+i); if(el) el.style.cursor='default'; }
+  // Canlı istatistik güncelle
+  let d=0,y=0;
+  sorular.forEach(s=>{ if(cevaplar[s.no]!==undefined){ if(cevaplar[s.no]===s.d) d++; else y++; } });
+  document.getElementById('stat-dogru').textContent=d;
+  document.getElementById('stat-yanlis').textContent=y;
+  guncelleProgres();
+}
+
+function guncelleProgres() {
+  const c = Object.keys(cevaplar).length;
+  document.getElementById('progress-fill').style.width = Math.round(c/50*100)+'%';
+  document.getElementById('progress-text').textContent = c + ' / 50 cevaplandı';
+}
+
+function quizKontrol() {
+  let dogru=0, yanlis=0, bos=0;
+  sorular.forEach(s => {
+    const secilen = cevaplar[s.no];
+    for(let i=0;i<5;i++){ const el=document.getElementById('opt-'+s.no+'-'+i); if(el) el.style.cursor='default'; }
+    if(secilen===undefined){ bos++; document.getElementById('opt-'+s.no+'-'+s.d).classList.add('correct'); document.getElementById('aciklama-'+s.no).classList.add('show'); }
+    else if(secilen===s.d){ dogru++; }
+    else { yanlis++; }
+  });
+  const puan = Math.round(dogru/50*100);
+  document.getElementById('stat-dogru').textContent = dogru;
+  document.getElementById('stat-yanlis').textContent = yanlis;
+  document.getElementById('sonuc-puan').textContent = '%'+puan;
+  document.getElementById('s-dogru').textContent = dogru;
+  document.getElementById('s-yanlis').textContent = yanlis;
+  document.getElementById('s-bos').textContent = bos;
+  const yorumlar = [[90,'🏆 Mükemmel! Konuya çok iyi hâkimsiniz.'],[75,'👍 Çok iyi! Küçük eksikleri giderirseniz mükemmel olur.'],[60,'📚 İyi! Konuyu biraz daha çalışmanızı öneririm.'],[40,'⚠️ Orta. Konu anlatımını tekrar gözden geçirin.'],[0,'📖 Konu anlatımını dikkatlice tekrar çalışmanız gerekmektedir.']];
+  document.getElementById('sonuc-yorum').textContent = yorumlar.find(y => puan >= y[0])[1];
+  document.getElementById('sonuc-panel').classList.add('show');
+  document.getElementById('sonuc-panel').scrollIntoView({behavior:'smooth'});
+}
+
+function quizSifirla() {
+  for(let k in cevaplar) delete cevaplar[k];
+  document.getElementById('sonuc-panel').classList.remove('show');
+  document.getElementById('stat-dogru').textContent = '0';
+  document.getElementById('stat-yanlis').textContent = '0';
+  document.getElementById('progress-fill').style.width = '0%';
+  document.getElementById('progress-text').textContent = '0 / 50 cevaplandı';
+  renderSorular();
+}
+
+renderSorular();
+</script>
+</body>
+</html>
+const _KALDIR = {
+  teblig: [
+    { no:1, soru:"Tebliğ kelimesi en doğru şekilde nasıl tanımlanır?",
+      s:["Vahyi yorumlamak ve açıklamak","Vahyi eksiksiz, değiştirmeden insanlara iletmek","Dini hükümler koymak ve belirlemek","Kur'an'ı ezberlemek ve okumak","Allah'a ibadet edip oruç tutmak"], d:1,
+      a:"Tebliğ; Allah'tan alınan vahyi hiçbir ekleme ve çıkarma yapmaksızın insanlara ulaştırmaktır." },
+    { no:2, soru:"'Ey Peygamber! Rabbinden sana indirileni tebliğ et…' ayeti hangi surede yer alır?",
+      s:["Bakara Suresi 67","Maide Suresi 67","Nûr Suresi 54","Ahzab Suresi 40","Ahzab Suresi 21"], d:1,
+      a:"Bu ayet Maide Suresi'nin 67. ayetidir ve tebliğin zorunluluğunu en güçlü biçimde ortaya koyar." },
+    { no:3, soru:"Veda Hutbesi'nde Hz. Peygamber'in 'Tebliğ ettim mi?' sorusundaki amacı nedir?",
+      s:["Sahabenin bilgisini sınamak","Tebliğ görevinin tamamlandığını tescil etmek","Yeni hükümler koymak","Gelecek peygamberlere görev devretmek","Sahabeyi yeni bir göreve atamak"], d:1,
+      a:"Veda Hutbesi, tebliğ görevinin peygamberin ağzından resmen tamamlandığı tarihi andır." },
+    { no:4, soru:"'Dinde zorlama yoktur' (Bakara 256) ayeti tebliğin hangi özelliğini vurgular?",
+      s:["Evrensellik","Eksiksizlik","Baskısızlık / davet niteliği","Süreklilik","Yazılı belgeleme"], d:2,
+      a:"Tebliğ dayatma değil, davettir. İnsanlar zorla değil, ikna ve güzel söz ile İslam'a çağrılır." },
+    { no:5, soru:"Hz. Peygamber'in Bizans ve Sasani hükümdarlarına mektuplar yazması tebliğin hangi boyutunu gösterir?",
+      s:["Fiili tebyin","Evrensellik ve sınır tanımazlık","Teşri yetkisi","Takriri onay","Kur'an'ı tefsir etme görevi"], d:1,
+      a:"Bu mektuplar tebliğin siyasi, coğrafi ve etnik sınır tanımadığının somut belgesidir." },
+    { no:6, soru:"Tebliğin 'eksiksizlik' ilkesinin en çarpıcı örneği olarak hangi sure gösterilir?",
+      s:["Fatiha Suresi","Bakara Suresi","Tebbet Suresi","İhlas Suresi","Kevser Suresi"], d:2,
+      a:"Hz. Peygamber kendi öz amcası Ebu Leheb hakkında inen Tebbet suresini tebliğden kaçınmamıştır." },
+    { no:7, soru:"'Rabbinin yoluna hikmetle, güzel öğütle davet et' ayeti hangi surede yer alır?",
+      s:["Nahl Suresi 125","Maide Suresi 67","Bakara Suresi 256","Ahzab Suresi 21","Enbiya Suresi 107"], d:0,
+      a:"Nahl 125. ayet, tebliğin üslubunu belirler: hikmet ve güzel öğüt." },
+    { no:8, soru:"Tebliğin kaç yıl sürdüğü bilinmektedir?",
+      s:["10 yıl","15 yıl","23 yıl","30 yıl","20 yıl"], d:2,
+      a:"Tebliğ, 610 yılında Hira Mağarası'nda başlayıp 632 yılında Veda Hutbesi'ne kadar 23 yıl sürmüştür." },
+    { no:9, soru:"'Peygambere düşen, sadece açıkça tebliğ etmektir' ayeti hangi surede yer alır?",
+      s:["Maide 67","Nûr 54","Haşr 7","Necm 4","Ahzab 40"], d:1,
+      a:"Nûr Suresi 54. ayette tebliğin yalnızca iletmek olduğu, hidayetin ise Allah'a ait olduğu bildirilir." },
+    { no:10, soru:"Tebliğ görevinin başladığı ilk ayet hangisidir?",
+      s:["Fatiha 1","Bakara 1","Alak 1 — 'Oku'","Müddessir 1","İnşirah 1"], d:2,
+      a:"İlk inen vahiy Alak suresinin 'Yaratan Rabbinin adıyla oku!' ayetidir." },
+  ],
+  tesri: [
+    { no:11, soru:"Teşri kavramı hangi kelimeyle aynı kökten gelir?",
+      s:["Tebyin","Şeriat","Sünnet","Temsil","Tebliğ"], d:1,
+      a:"Teşri, şeriat kelimesiyle aynı kökten gelir ve 'hüküm koymak, kanun belirlemek' anlamı taşır." },
+    { no:12, soru:"'O, kendi heva ve hevesinden konuşmaz; söyledikleri vahyedilen bir vahiyden başkası değildir.' Bu ayet hangi surede?",
+      s:["Haşr 7","Ahzab 36","Necm 3-4","Nahl 44","Maide 67"], d:2,
+      a:"Necm Suresi 3-4. ayetler, Hz. Peygamber'in sözlerinin vahye dayandığını tescil eder." },
+    { no:13, soru:"'Peygamber size ne verdiyse onu alın; size ne yasakladıysa ondan kaçının' ayeti teşri ile ilgili ne söyler?",
+      s:["Hz. Peygamber'in hükümlerinin tavsiye niteliğinde olduğunu","Hz. Peygamber'in bağlayıcı teşri yetkisine sahip olduğunu","Yalnızca namazla ilgili hükümler bağlayıcıdır","Teşri yetkisi yalnızca Kur'an'a aittir","Yalnızca ticaret ve miras konuları bağlayıcıdır"], d:1,
+      a:"Haşr 7. ayet, Hz. Peygamber'in verdiği her hükmün bağlayıcı olduğunu kesin biçimde ortaya koyar." },
+    { no:14, soru:"Namazın kaç vakitte ve kaç rekâtta kılınacağını belirleyen kaynak hangisidir?",
+      s:["Kur'an-ı Kerim","Hz. Peygamber'in teşri görevi — sünnet","Sahabe icması","Fıkıh kitapları","Dört büyük halifenin fetvası"], d:1,
+      a:"Kur'an namazın farz olduğunu bildirir; ancak vakitlerini ve rekâtlarını Hz. Peygamber'in sünneti belirler." },
+    { no:15, soru:"'Beni nasıl namaz kılarken görüyorsanız öyle kılın' hadisi hangi görevi öncelikle örnekler?",
+      s:["Tebliğ","Teşri","Tebyin — fiili açıklama","Temsil","Tebliğ — sözlü iletme"], d:2,
+      a:"Bu hadis, namazı göstererek açıklama yönüyle öncelikle fiili tebyin'i örnekler." },
+    { no:16, soru:"Hz. Peygamber'in vahiy gelmediği durumlarda kendi değerlendirmesiyle verdiği hükme ne denir?",
+      s:["Tebyin","İcma","İçtihat","Kıyas","Rivayet"], d:2,
+      a:"Hz. Peygamber vahiy gelmediği anlarda bağımsız içtihatla hüküm vermiş; zaman zaman vahiyle düzeltilmiştir." },
+    { no:17, soru:"'Allah ve Resulü bir işe hükmettiği zaman, mümin erkek ve kadına seçim hakkı yoktur' ayeti hangi surede?",
+      s:["Necm 3","Haşr 7","Ahzab 36","Nisa 59","Nahl 44"], d:2,
+      a:"Ahzab 36. ayet, Hz. Peygamber'in hükümlerinin Müslümanlar için bağlayıcı olduğunu kesinleştirir." },
+    { no:18, soru:"Teşri yetkisinin İslam hukukundaki en önemli sonucu nedir?",
+      s:["Kur'an'ın yetersiz olduğunu göstermesi","Sünnetin bağımsız bir hukuk kaynağı olması","Sahabe görüşlerinin bağlayıcı hale gelmesi","Fıkıh mezheplerinin oluşması","İslam'ın diğer dinlerden üstün olduğunu kanıtlaması"], d:1,
+      a:"Teşri yetkisi, sünnetin Kur'an'ın yanında İslam hukukunun ikinci bağımsız kaynağı olmasının temelidir." },
+    { no:19, soru:"Miras hukuku, nikâh şartları ve ticari sözleşme kurallarını düzenleyen temel kaynak hangisidir?",
+      s:["Yalnızca Kur'an-ı Kerim","Hz. Peygamber'in sünneti (teşri)","Sahabe fetvası","Müctehid içtihadı","Tabiin görüşleri"], d:1,
+      a:"Kur'an genel çerçeveyi çizer; bu ayrıntılar Hz. Peygamber'in teşri yetkisiyle düzenlenmiştir." },
+    { no:20, soru:"Nahl 44'teki 'İnsanlara ne indirildiğini açıklayasın diye sana Kur'an'ı indirdik' ifadesi teşri için ne sağlar?",
+      s:["Teşri yetkisinin Kur'an'daki doğrudan dayanağını","Tebyin'in gereksiz olduğunu","Sünnetin Kur'an'ı neshettiğini","Peygamberlik görevinin sona erdiğini","Peygamberin vahyi değiştirebileceğini"], d:0,
+      a:"Nahl 44, Hz. Peygamber'e hem açıklama hem uygulama — dolayısıyla teşri — yetkisi verildiğinin tescilidir." },
+  ],
+  tebyin: [
+    { no:21, soru:"Tebyin kelimesinin en doğru anlamı hangisidir?",
+      s:["Hüküm koymak","Açıklamak ve anlaşılır kılmak","Vahyi iletmek","Örnek olmak ve göstermek","Sünnet ve hadis toplamak"], d:1,
+      a:"Tebyin; 'açıklamak, netleştirmek, anlaşılır kılmak' anlamına gelir." },
+    { no:22, soru:"'Sana da bu Kur'an'ı indirdik ki insanlara ne indirildiğini açıklayasın' ayeti hangi surede yer alır?",
+      s:["İbrahim 4","Nahl 44","Bakara 213","Ahzab 21","Enbiya 107"], d:1,
+      a:"Nahl 44. ayet, tebyin görevinin Kur'an'daki en doğrudan dayanağıdır." },
+    { no:23, soru:"Hz. Peygamber'in Enam 82'deki 'zulüm' kelimesini Lokman 13 ile açıklaması hangi tebyin türüdür?",
+      s:["Fiili tebyin","Takriri tebyin","Kavli tebyin","Yazılı tebyin","Sembolik tebyin"], d:2,
+      a:"Kavli tebyin; Hz. Peygamber'in ayetleri sözle yorumladığı ve açıkladığı hadisleri kapsar." },
+    { no:24, soru:"'Hac menasiklerinizi benden alın' hadisi hangi tebyin türünü gösterir?",
+      s:["Kavli tebyin","Fiili tebyin","Takriri tebyin","Yazılı tebyin","Sembolik tebyin"], d:1,
+      a:"Fiili tebyin; Hz. Peygamber'in ibadetleri bizzat yaparak göstermesidir." },
+    { no:25, soru:"Sahabenin bir uygulamasına Hz. Peygamber'in sessiz kalması hangi tebyin türüdür?",
+      s:["Kavli tebyin","Fiili tebyin","Takriri tebyin","Yazılı tebyin","Sözlü tebyin"], d:2,
+      a:"Takriri tebyin; Hz. Peygamber'in gördüğü doğru uygulamayı onaylaması ve buna itiraz etmemesidir." },
+    { no:26, soru:"Medine Vesikası hangi tebyin türüne örnek teşkil eder?",
+      s:["Kavli tebyin","Fiili tebyin","Takriri tebyin","Yazılı tebyin","Kavli-fiili ortak tebyin"], d:3,
+      a:"Medine Vesikası, Hz. Peygamber'in kâtiplerine yazdırdığı belgedir ve yazılı tebyin kapsamındadır." },
+    { no:27, soru:"Tebyin olmadan Kur'an'ın pratik hayatta eksik kalacak temel nedeni nedir?",
+      s:["Kur'an Arapça yazıldığı için","Kur'an'ın bazı hükümleri mücmel (özet) bıraktığı için","Kur'an'ın çok uzun olduğu için","Kur'an'ın yalnızca ahlaki ilkeler içerdiği için","Kur'an'ın yalnızca Mekki sureleri kapsadığı için"], d:1,
+      a:"Kur'an 'Namaz kılın' emrini verir ama namazın ayrıntılarını tebyin olmadan belirlemek mümkün değildir." },
+    { no:28, soru:"'Mücmel' kavramı tebyin bağlamında ne anlama gelir?",
+      s:["Tamamen açık ve ayrıntılı olan","Ayrıntıları verilmeden özet bırakılan","Anlam bakımından çelişkili olan","Zayıf senetli hadis","Uzun ve ayrıntılı açıklama içeren"], d:1,
+      a:"Mücmel; Kur'an'da genel ilke olarak verilen ama ayrıntılandırılmayan hükümlerdir." },
+    { no:29, soru:"'Biz her peygamberi ancak kendi kavminin diliyle gönderdik ki onlara açıklasın' ayeti hangi surede geçmektedir?",
+      s:["Nahl 44","İbrahim 4","Ahzab 40","Necm 3","Maide 67"], d:1,
+      a:"İbrahim 4. ayet, peygamberlerin görevinin açıklamayı (tebyin'i) kapsadığını ortaya koyar." },
+    { no:30, soru:"Tebyin ile tebliğ arasındaki temel fark nedir?",
+      s:["Tebliğ yalnızca yazılı, tebyin sözlüdür","Tebliğ vahyi iletmek, tebyin onu anlaşılır kılmaktır","Tebyin yalnızca ibadetlere, tebliğ ahlaka aittir","Aralarında hiçbir fark yoktur","Tebliğ lafzı korumak, tebyin metni muhafaza etmektir"], d:1,
+      a:"Tebliğ mesajı hedefe ulaştırmak, tebyin ise o mesajı açıklayarak yaşanabilir hâle getirmektir." },
+  ],
+  temsil: [
+    { no:31, soru:"'Usve-i hasene' ifadesi Kur'an'da hangi ayette geçer?",
+      s:["Kalem 4","Ahzab 21","Enbiya 107","Nahl 125","Nisa 59"], d:1,
+      a:"Ahzab 21. ayette Hz. Peygamber 'usve-i hasene' — güzel örnek — olarak tanımlanmıştır." },
+    { no:32, soru:"Hz. Aişe'ye 'Hz. Peygamber'in ahlakı nasıldı?' diye sorulduğunda verdiği cevap nedir?",
+      s:["'O, en güzel insandı'","'O'nun ahlakı Kur'an'dı'","'O hiç kızmayan biriydi'","'O, mükemmel bir idareciydi'","'O, tüm insanlara eşit davranırdı'"], d:1,
+      a:"Hz. Aişe'nin bu cevabı temsil görevinin en özlü ifadesidir: Hz. Peygamber yürüyen bir Kur'an'dı." },
+    { no:33, soru:"'Sen elbette yüce bir ahlak üzerindesin' ayeti hangi surede yer alır?",
+      s:["Ahzab 21","Enbiya 107","Kalem 4","Necm 3","Maide 3"], d:2,
+      a:"Kalem Suresi 4. ayet, Hz. Peygamber'in yüce ahlakına Kur'an'ın verdiği en güçlü tanıklıktır." },
+    { no:34, soru:"Mekke'nin fethinde 'Gidin, hepiniz serbestsiniz' demesi temsil görevinin hangi boyutunu gösterir?",
+      s:["İbadet hayatında temsil","Ticaret hayatında temsil","Ahlaki hayatta temsil — affın yaşanması","Devlet yönetiminde temsil","İlim hayatında temsil"], d:2,
+      a:"Bu an, affın ve merhametin soyut bir kavram değil yaşanan bir gerçek olduğunu gösteren en çarpıcı örnektir." },
+    { no:35, soru:"'İçinizde en hayırlınız ailesine en iyi olanıdır' hadisi temsil görevinin hangi alanını örnekler?",
+      s:["Sosyal hayat","Aile hayatı","Devlet yönetimi","İbadet hayatı","Cihad ve mücadele hayatı"], d:1,
+      a:"Hz. Peygamber aile ahlakını bizzat yaşayarak temsil etmiştir." },
+    { no:36, soru:"Mescid-i Nebevi inşaatında Hz. Peygamber'in bizzat taş taşıması hangi mesajı vermektedir?",
+      s:["Mimarinin önemini gösterir","Liderliğin sorumluluk ve emek olduğunu temsil eder","Sahabenin tembel olduğunu gösterir","Namazın farz olduğunu öğretir","Hz. Peygamber'in fiziksel gücünü gösterir"], d:1,
+      a:"Hz. Peygamber'in inşaat çalışmalarına katılması, liderliğin sorumlulukla yaşanması gerektiğini temsil eder." },
+    { no:37, soru:"Temsil görevi neden diğer üç görevden ayrı ve vazgeçilmez öneme sahiptir?",
+      s:["En zor görevi olduğu için","İslam'ın yaşanabilir olduğunu somut biçimde kanıtladığı için","En çok ayet içerdiği için","Yalnızca peygambere özgü olduğu için","En kısa süreli peygamberlik görevi olduğu için"], d:1,
+      a:"Temsil olmadan İslam uygulanması belirsiz bir idealler bütünü kalırdı." },
+    { no:38, soru:"Medine Vesikası temsil görevinin hangi boyutuna örnek teşkil eder?",
+      s:["Aile hayatında temsil","Devlet yönetiminde adil temsil","İbadet hayatında temsil","Ticaret hayatında temsil","Ahlaki hayatta temsil"], d:1,
+      a:"Medine Vesikası, hakkaniyetli devlet yönetiminin Hz. Peygamber tarafından bizzat uygulandığını gösterir." },
+    { no:39, soru:"'Bedeninin, ailenin ve gözlerinin de senin üzerinde hakkı var' buyurması temsil bağlamında neyi öğretir?",
+      s:["Dinin yalnızca ibadetten ibaret olmadığını, dengeyi temsil eder","İbadetin farz olmadığını gösterir","Nafile ibadetlerin önemsiz olduğunu anlatır","Uyku almanın ibadet sayıldığını söyler","Hz. Peygamber'in halife seçeceğini bildiren bir işarettir"], d:0,
+      a:"Bu söz, dinin dengeli yaşanması gerektiğini ve aşırılıktan kaçınılmasını temsil eder." },
+    { no:40, soru:"Tebliğ, teşri, tebyin ve temsil arasındaki ilişkiyi en iyi açıklayan ifade hangisidir?",
+      s:["Birbirinden bağımsız ve ayrı görevlerdir","Birbirini tamamlayan, hepsi birlikte İslam'ı eksiksiz kılan görevlerdir","Yalnızca tebliğ zorunlu, diğerleri isteğe bağlıdır","Temsil diğerlerini gereksiz kılar","Temsil ve tebyin aynıdır, birbirinin yerine kullanılabilir"], d:1,
+      a:"Bu dört görev birbirini tamamlar. Biri eksik kalsa İslam'ın tam ve doğru anlaşılması mümkün olmazdı." },
+  ],
+  genel: [
+    { no:41, soru:"'O, Allah'ın Resulü ve peygamberlerin sonuncusudur (Hâtemü'n-Nebiyyîn)' ayeti hangi surede yer alır?",
+      s:["Kehf 110","Enbiya 107","Ahzab 40","Nisa 79","Bakara 255"], d:2,
+      a:"Ahzab 40. ayet, Hz. Muhammed'in son peygamber olduğunu kesin biçimde bildiren temel ayettir." },
+    { no:42, soru:"Peygamberlerin zorunlu sıfatlarından 'ismet' ne anlama gelir?",
+      s:["Doğru sözlülük","Güvenilirlik","Büyük günahlardan Allah'ın korumasıyla arınmış olmak","Üstün akıl ve zekâ","Tebliğ görevini eksiksiz yerine getirmek"], d:2,
+      a:"İsmet; peygamberlerin büyük günah işlemekten Allah'ın özel koruyuculuğuyla korunmuş olması anlamına gelir." },
+    { no:43, soru:"'Fetanet' sıfatının zıddı olan kavram hangisidir?",
+      s:["Kizb","Hıyanet","Kitman","Belâdet","Tebliğ"], d:3,
+      a:"Fetanetin (üstün akıl) zıddı belâdet (anlayış yetersizliği ve zekâ eksikliği) dir." },
+    { no:44, soru:"'Biz seni ancak âlemlere rahmet olarak gönderdik' (Enbiya 107) ayetinde 'âlemler' ifadesi kimi kapsar?",
+      s:["Yalnızca Müslümanları","Yalnızca Arap kavmini","İnsan, cin ve tüm varlıkları","Yalnızca Hz. Peygamber dönemini","Yalnızca Müslüman ülkeleri"], d:2,
+      a:"Âlemler ifadesi en geniş kapsamıyla tüm varlıkları — insan, cin, hayvan ve evrendeki her şeyi — içerir." },
+    { no:45, soru:"Ahzab 45-46'da Hz. Peygamber'in görevleri arasında 'beşir' neyi ifade eder?",
+      s:["Uyarıcı olmak","Müjdeci olmak","Aydınlatıcı kandil olmak","Örnek ve tanık olmak","Vahiy meleği gibi aracı olmak"], d:1,
+      a:"Beşir/mübeşşir; iman edenlere cennet ve Allah'ın rızasının müjdesini taşımaktır." },
+    { no:46, soru:"'Sirac-ı münir' sıfatı ne anlama gelir?",
+      s:["Son uyarıcı","Güzel örnek","Aydınlatıcı kandil","Güvenilir tanık","Peygamberlerin sonuncusu"], d:2,
+      a:"Sirac-ı münir; karanlıkta yol gösteren aydınlatıcı kandil anlamına gelir." },
+    { no:47, soru:"'Sıdk' sıfatının kapsamı yalnızca sözde doğrulukla mı sınırlıdır?",
+      s:["Evet, yalnızca yalan söylememektir","Hayır; söz, düşünce ve eylemde bütünleşik dürüstlüktür","Evet, yalnızca ticaret hayatında geçerlidir","Hayır, yalnızca Allah'a karşı dürüstlüğü kapsar","Hayır, yalnızca peygamberlere özgü ahlaki bir kuraldır"], d:1,
+      a:"Sıdk; söz, düşünce ve eylem bütününde tutarlı doğruluktur. Yalnızca dile özgü değildir." },
+    { no:48, soru:"Nübüvvet ile risalet arasındaki temel fark nedir?",
+      s:["İkisi tamamen aynı anlama gelir","Nübüvvet vahiy almak, risalet bu vahyi insanlara iletmekle görevlendirilmektir","Nübüvvet daha üstündür","Risalet yalnızca Hz. Muhammed'e özgüdür","Her nebi aynı zamanda resuldür, aralarında fark yoktur"], d:1,
+      a:"Her resul nebidir ancak her nebi resul değildir. Risalet, tebliğ göreviyle birlikte gelen bir görevlendirmedir." },
+    { no:49, soru:"Hz. Peygamber'in beşerî yönünün önemi nedir?",
+      s:["O'nun sıradan biri olduğunu kanıtlar","O'nun örnek alınabilirliğini ve ulaşılabilirliğini mümkün kılar","Vahye olan ihtiyacı azaltır","Peygamberlik görevini zayıflatır","O'nun insanlarla iletişimini güçleştirdiğini gösterir"], d:1,
+      a:"Beşerî oluşu, O'nun örnek alınabilirliğini güçlendirir; ulaşılamaz bir ideal değil, yaşanabilir bir model sunar." },
+    { no:50, soru:"Dört peygamberlik görevi arasında hangisi 'İslam'ın yaşanabilirliğini' doğrudan kanıtlar?",
+      s:["Tebliğ","Teşri","Tebyin","Temsil","Tebliğ ve teşri birlikte"], d:3,
+      a:"Temsil görevi; soyut ilkelerin somut bir insan hayatında nasıl uygulandığını göstererek İslam'ın yaşanabilirliğini kanıtlar." },
+  ],
+};
+
+// ===== RENDER =====
+const HARFLER = ['A','B','C','D','E'];
+const cevaplar = {};
+
+function renderSorular() {
+  ['teblig','tesri','tebyin','temsil','genel'].forEach(blok => {
+    const container = document.getElementById('sorular-' + blok);
+    container.innerHTML = sorular[blok].map(s => `
+      <div class="soru" id="soru-${s.no}">
+        <div class="soru-text"><span class="no">${s.no}</span>${s.soru}</div>
+        <div class="secenekler">
+          ${s.s.map((sec, j) => `
+            <div class="secenek${j===4?' secenek-e':''}" id="opt-${s.no}-${j}" onclick="secSec(${s.no},${j},${s.d},'${blok}')">
+              <span class="harf">${HARFLER[j]}</span>${sec}
+            </div>`).join('')}
+        </div>
+        <div class="aciklama" id="aciklama-${s.no}">💡 ${s.a}</div>
+      </div>`).join('');
+  });
+}
+
+function secSec(soruNo, secNo, dogru, blok) {
+  const ilk = document.getElementById('opt-' + soruNo + '-0');
+  if(ilk && (ilk.classList.contains('correct') || ilk.classList.contains('wrong'))) return;
+  for(let i = 0; i < 5; i++) { const el = document.getElementById('opt-'+soruNo+'-'+i); if(el) el.classList.remove('selected'); }
+  cevaplar[soruNo] = secNo;
+  document.getElementById('opt-'+soruNo+'-'+secNo).classList.add('selected');
+  guncelleProgres();
+}
+
+function guncelleProgres() {
+  const c = Object.keys(cevaplar).length;
+  document.getElementById('progress-fill').style.width = Math.round(c/50*100)+'%';
+  document.getElementById('progress-text').textContent = c + ' / 50 cevaplandı';
+}
+
+function quizKontrol() {
+  let dogru=0, yanlis=0, bos=0;
+  [...sorular.teblig,...sorular.tesri,...sorular.tebyin,...sorular.temsil,...sorular.genel].forEach(s => {
+    const secilen = cevaplar[s.no];
+    for(let i=0;i<5;i++){ const el=document.getElementById('opt-'+s.no+'-'+i); if(el) el.style.cursor='default'; }
+    if(secilen===undefined){ bos++; document.getElementById('opt-'+s.no+'-'+s.d).classList.add('correct'); }
+    else if(secilen===s.d){ dogru++; document.getElementById('opt-'+s.no+'-'+s.d).classList.add('correct'); document.getElementById('opt-'+s.no+'-'+secilen).classList.remove('selected'); }
+    else { yanlis++; document.getElementById('opt-'+s.no+'-'+secilen).classList.add('wrong'); document.getElementById('opt-'+s.no+'-'+s.d).classList.add('correct'); document.getElementById('opt-'+s.no+'-'+secilen).classList.remove('selected'); }
+    document.getElementById('aciklama-'+s.no).classList.add('show');
+  });
+  const puan = Math.round(dogru/50*100);
+  document.getElementById('stat-dogru').textContent = dogru;
+  document.getElementById('stat-yanlis').textContent = yanlis;
+  document.getElementById('sonuc-puan').textContent = '%'+puan;
+  document.getElementById('s-dogru').textContent = dogru;
+  document.getElementById('s-yanlis').textContent = yanlis;
+  document.getElementById('s-bos').textContent = bos;
+  const yorumlar = [[90,'🏆 Mükemmel! Konuya çok iyi hâkimsiniz.'],[75,'👍 Çok iyi! Küçük eksikleri giderirseniz mükemmel olur.'],[60,'📚 İyi! Konuyu biraz daha çalışmanızı öneririm.'],[40,'⚠️ Orta. Konu anlatımını tekrar gözden geçirin.'],[0,'📖 Konu anlatımını dikkatlice tekrar çalışmanız gerekmektedir.']];
+  document.getElementById('sonuc-yorum').textContent = yorumlar.find(y => puan >= y[0])[1];
+  document.getElementById('sonuc-panel').classList.add('show');
+  document.getElementById('sonuc-panel').scrollIntoView({behavior:'smooth'});
+}
+
+function quizSifirla() {
+  for(let k in cevaplar) delete cevaplar[k];
+  document.getElementById('sonuc-panel').classList.remove('show');
+  document.getElementById('stat-dogru').textContent = '0';
+  document.getElementById('stat-yanlis').textContent = '0';
+  document.getElementById('progress-fill').style.width = '0%';
+  document.getElementById('progress-text').textContent = '0 / 50 cevaplandı';
+  renderSorular();
+}
+
+renderSorular();
+</script>
+</body>
+</html>
